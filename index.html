@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Estamitech</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #2d2d2d;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+        .description {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 800px;
+        }
+        .episodes {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 800px;
+        }
+        .episode {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 15px;
+        }
+        .episode img {
+            max-width: 300px;
+            max-height: 300px;
+            margin-right: 20px;
+        }
+        .episode-details {
+            max-width: 600px;
+        }
+        .episode-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .episode-date {
+            color: grey;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="/LogoEstamitech.jpg" alt="Logo Estamitech" style="max-width: 150px; margin-bottom: 20px;">
+    <h1>Bienvenue sur l'Estamitech !</h1>
+</header>
+
+<section class="description">
+    <h2>Description du Podcast</h2>
+    <p>
+        Bienvenue sur mon podcast où nous discutons de divers sujets fascinants ! Retrouvez ici tous les épisodes à écouter.
+    </p>
+</section>
+
+<section class="episodes">
+    <h2>Épisodes disponibles</h2>
+    <div id="podcast-episodes">
+        <p>Chargement des épisodes...</p>
+    </div>
+</section>
+
+<script>
+    const rssFeedUrl = 'https://feeds.zencastr.com/f/bOMlUWx6.rss';
+    function parseRSS(url, callback) {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`, true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                callback(JSON.parse(xhr.responseText));
+            }
+        };
+        xhr.send();
+    }
+
+    function displayEpisodes(episodes) {
+        const episodeContainer = document.getElementById('podcast-episodes');
+        episodeContainer.innerHTML = '';
+
+        episodes.forEach(episode => {
+            const episodeElement = document.createElement('div');
+            episodeElement.classList.add('episode');
+
+            episodeElement.innerHTML = `
+                <img src="${episode.thumbnail}" alt="Miniature de l'épisode">
+                <div class="episode-details">
+                    <div class="episode-title">${episode.title}</div>
+                    <div class="episode-date">${new Date(episode.pubDate).toLocaleDateString()}</div>
+                    <div class="episode-description">${episode.description}</div>
+                </div>
+            `;
+
+            episodeContainer.appendChild(episodeElement);
+        });
+    }
+
+    parseRSS(rssFeedUrl, function(data) {
+        if (data && data.items) {
+            displayEpisodes(data.items);
+        } else {
+            document.getElementById('podcast-episodes').innerHTML = 'Aucun épisode trouvé.';
+        }
+    });
+</script>
+
+</body>
+</html>
