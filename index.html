@@ -18,28 +18,26 @@
             position: relative;
         }
         header img {
-            max-width: 200px;
+            max-width: 300px;
             border-radius: 10px;
         }
         header h1 {
             font-size: 2.5rem;
             margin-top: 20px;
             font-weight: bold;
-            color: white; /* Couleur rose correspondant au logo */
+            color: white;
         }
-        .description {
+        .content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
             margin: 20px auto;
-            padding: 20px;
-            max-width: 800px;
-            background-color: #ffffff;
-            color: #333;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 1200px;
         }
-        .episodes {
-            margin: 20px auto;
+        .description, .episodes, .estaminets {
+            flex: 1;
+            margin: 10px;
             padding: 20px;
-            max-width: 800px;
             background-color: #ffffff;
             color: #333;
             border-radius: 8px;
@@ -55,6 +53,7 @@
             max-width: 300px;
             max-height: 300px;
             margin-right: 20px;
+            border-radius: 10px;
         }
         .episode-details {
             max-width: 600px;
@@ -76,18 +75,28 @@
     <h1>Bienvenue sur l'Estamitech !</h1>
 </header>
 
-<section class="description">
-    <h2>Le podcast qui met la tech du Nord à l'honneur.</h2>
-    <a href="https://podcasts.apple.com/us/podcast/lestamitech/id1752308502?itsct=podcast_box_badge&amp;itscg=30200&amp;ls=1" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/listen-on-apple-podcasts/badge/fr-fr?size=250x83&amp;releaseDate=1725395040" alt="Listen on Apple Podcasts" style="border-radius: 13px; width: 250px; height: 40px;"></a>
-    <a href="https://open.spotify.com/show/1308v72DAlbYP13TA5au1I" style="display: inline-block; overflow: hidden; border-radius: 13px; width: 250px; height: 83px;"><img src="spotify-podcast-badge-blk-grn-165x40.png" alt="Listen on Apple Podcasts" style="border-radius: 13px; height: 40px;"></a>
-</section>
+<div class="content">
+    <section class="description">
+        <h2>Le podcast qui met la tech du Nord à l'honneur.</h2>
+        <p>L'Estamitech est un podcast par Ludovic Borie.</p>
+        <p>Chaque épisode met en avant un projet, une initiative dont nous pouvons discuter dans la bonne humeur et sans langue de bois.</p>
+        <p>Si vous souhaitez participer à l'émission, n'hésitez pas à me contacter sur <a href="https://www.linkedin.com/in/ludovicborie/">Linkedin</a>, <a href="https://piaille.fr/@bodul">Mastodon</a> ou <a href="https://twitter.com/ludovicborie">Twitter</a>.</p>
+        <p><a href="https://podcasts.apple.com/us/podcast/lestamitech/id1752308502?itsct=podcast_box_badge&amp;itscg=30200&amp;ls=1" style="border-radius: 13px; height: 83px;"><img src="https://tools.applemediaservices.com/api/badges/listen-on-apple-podcasts/badge/fr-fr?size=250x83&amp;releaseDate=1725395040" alt="Listen on Apple Podcasts" style="border-radius: 13px; height: 40px;"></a>
+        <a href="https://open.spotify.com/show/1308v72DAlbYP13TA5au1I" style="border-radius: 13px; width: 250px; height: 83px;"><img src="spotify-podcast-badge-blk-grn-165x40.png" alt="Listen on Apple Podcasts" style="border-radius: 13px; height: 40px;"></a>
+        </p>
+    </section>
+    <section class="estaminets">
+        <h2>Les invités vous recommandent :</h2>
+       <iframe width="100%" height="500px" frameborder="0" allowfullscreen allow="geolocation" src="//umap.openstreetmap.fr/fr/map/estaminets_1111967?scaleControl=false&miniMap=false&scrollWheelZoom=true&zoomControl=true&editMode=disabled&moreControl=true&searchControl=null&tilelayersControl=null&embedControl=false&datalayersControl=false&onLoadPanel=none&captionBar=false&captionMenus=true&editinosmControl=false#11/50.72/2.9"></iframe><p><a href="//umap.openstreetmap.fr/fr/map/estaminets_1111967?scaleControl=false&miniMap=false&scrollWheelZoom=true&zoomControl=true&editMode=disabled&moreControl=true&searchControl=null&tilelayersControl=null&embedControl=false&datalayersControl=false&onLoadPanel=none&captionBar=false&captionMenus=true&editinosmControl=false#11/50.7467/2.8805">Voir en plein écran</a></p>
+    </section>
 
-<section class="episodes">
-    <h2>Épisodes</h2>
-    <div id="podcast-episodes">
-        <p>Chargement des épisodes...</p>
-    </div>
-</section>
+    <section class="episodes">
+        <h2>Épisodes</h2>
+        <div id="podcast-episodes">
+            <p>Chargement des épisodes...</p>
+        </div>
+    </section>
+</div>
 
 <script>
     const rssFeedUrl = 'https://feeds.zencastr.com/f/bOMlUWx6.rss';
