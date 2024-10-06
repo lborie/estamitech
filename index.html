@@ -51,6 +51,7 @@
             color: #333;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 100%;
         }
         .episode {
             display: flex;
@@ -58,6 +59,7 @@
             margin-bottom: 20px;
             border-bottom: 1px solid #ccc;
             padding-bottom: 15px;
+            text-wrap: balance;
         }
         .episode-thumbnail {
             flex: 1;
@@ -77,6 +79,21 @@
         .episode-date {
             color: grey;
             margin-bottom: 10px;
+        }
+        @media (max-width: 768px) {
+            .episode {
+                flex-direction: column;
+                align-items: center;
+                width : 90%;
+            }
+            .episode-thumbnail {
+                max-width: 100%;
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            .episode-details {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
