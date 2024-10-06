@@ -14,7 +14,7 @@
         header {
             color: white;
             text-align: center;
-            padding: 3rem 1rem;
+            padding-top: 3rem;
             position: relative;
         }
         header img {
@@ -54,17 +54,20 @@
         }
         .episode {
             display: flex;
+            flex-wrap: inherit;
             margin-bottom: 20px;
             border-bottom: 1px solid #ccc;
             padding-bottom: 15px;
         }
-        .episode img {
+        .episode-thumbnail {
+            flex: 1;
             max-width: 300px;
             max-height: 300px;
             margin-right: 20px;
             border-radius: 10px;
         }
         .episode-details {
+            flex: 1;
             max-width: 600px;
         }
         .episode-title {
@@ -130,7 +133,7 @@
             episodeElement.classList.add('episode');
 
             episodeElement.innerHTML = `
-                <img src="${episode.thumbnail}" alt="Miniature de l'épisode">
+                <img class="episode-thumbnail" src="${episode.thumbnail}" alt="Miniature de l'épisode">
                 <div class="episode-details">
                     <div class="episode-title">${episode.title}</div>
                     <div class="episode-date">${new Date(episode.pubDate).toLocaleDateString()}</div>
