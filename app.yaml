@@ -1,0 +1,9 @@
+runtime: go123
+
+handlers:
+  - url: /static/(.*\.(png|jpg))$
+    static_files: static/\1
+    upload: static/.*\.(png|jpg)$
+
+  - url: /.*
+    script: auto
