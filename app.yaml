@@ -1,9 +1,9 @@
 runtime: go123
 
 handlers:
-  - url: /static/(.*\.(png|jpg))$
+  - url: /static/(.*\.(png|jpg|ico))$
     static_files: static/\1
-    upload: static/.*\.(png|jpg)$
+    upload: static/.*\.(png|jpg|ico)$
 
   - url: /.*
     script: auto

@@ -3,6 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="L'Estamitech est un podcast par Ludovic Borie. Chaque épisode met en avant un projet, une initiative dont nous pouvons discuter tech dans la bonne humeur et sans langue de bois.">
+    <meta name="keywords" content="podcast, tech, nord, estaminet, ludovic borie">
+    <meta name="author" content="Ludovic Borie">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta name="theme-color" content="#1f0066">
+    <meta property="og:title" content="L'Estamitech">
+    <meta property="og:description" content="L'Estamitech est un podcast par Ludovic Borie. Chaque épisode met en avant un projet, une initiative dont nous pouvons discuter tech dans la bonne humeur et sans langue de bois.">
+    <meta property="og:image" content="static/LogoEstamitech.jpg">
+    <meta property="og:url" content="https://estamitech.fr">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:site_name" content="L'Estamitech">
+    <link rel="icon" type="image/x-icon" href="static/favicon.ico">
     <title>L'Estamitech</title>
     <style>
         body {
@@ -12,18 +26,21 @@
             background: linear-gradient(135deg, #2b004d, #1f0066);
         }
         header {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
             color: white;
             text-align: center;
             padding-top: 3rem;
-            position: relative;
         }
         header img {
-            max-width: 300px;
+            max-width: 250px;
             border-radius: 10px;
         }
         header h1 {
             font-size: 2.5rem;
-            margin-top: 20px;
             font-weight: bold;
             color: white;
         }
@@ -63,8 +80,8 @@
         }
         .episode-thumbnail {
             flex: 1;
-            max-width: 300px;
-            max-height: 300px;
+            max-width: 250px;
+            max-height: 250px;
             margin-right: 20px;
             border-radius: 10px;
         }
@@ -100,7 +117,7 @@
 <body>
 
 <header>
-    <img src="static/LogoEstamitech.jpg" alt="Logo Estamitech" style="max-width: 150px; margin-bottom: 20px;">
+    <img src="static/LogoEstamitech.jpg" alt="Logo Estamitech">
     <h1>Bienvenue sur l'Estamitech !</h1>
 </header>
 
