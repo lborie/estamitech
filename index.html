@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="L'Estamitech est un podcast par Ludovic Borie. Chaque épisode met en avant un projet, une initiative dont nous pouvons discuter tech dans la bonne humeur et sans langue de bois.">
     <meta name="keywords" content="podcast, tech, nord, estaminet, ludovic borie">
     <meta name="author" content="Ludovic Borie">
@@ -158,6 +158,7 @@
         .hero-content {
             z-index: 1;
             max-width: 800px;
+            width: 100%;
         }
 
         .hero img {
@@ -206,6 +207,9 @@
         /* Main Content */
         .main-content {
             padding: 4rem 5%;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
         .section-title {
@@ -233,6 +237,9 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
         .card {
@@ -241,6 +248,9 @@
             overflow: hidden;
             box-shadow: var(--card-shadow);
             transition: transform var(--transition-speed);
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
         .card:hover {
@@ -352,6 +362,9 @@
         .episodes-section {
             padding: 4rem 5%;
             background-color: #f8f9fa;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
         .episode-card {
@@ -362,6 +375,9 @@
             box-shadow: var(--card-shadow);
             margin-bottom: 2rem;
             transition: transform var(--transition-speed);
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
         }
 
         .episode-card:hover {
@@ -449,6 +465,7 @@
         .footer-content {
             max-width: 800px;
             margin: 0 auto;
+            width: 100%;
         }
 
         .footer-logo {
@@ -514,6 +531,33 @@
             transform: translateY(-5px);
         }
 
+        /* Ensure full width on mobile */
+        @media screen and (max-width: 430px) {
+            .hero-content, 
+            .grid-container, 
+            .card, 
+            .card-content, 
+            .episodes-container,
+            .episode-card,
+            .episode-details,
+            .footer-content {
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+            
+            .episode-image {
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+            
+            .episodes-section,
+            .main-content {
+                padding: 4rem 1rem;
+            }
+        }
+        
         /* Responsive Styles */
         @media (max-width: 992px) {
             .grid-container {
@@ -587,6 +631,17 @@
         }
 
         @media (max-width: 480px) {
+            .hero-content,
+            .grid-container,
+            .card,
+            .card-content,
+            .episodes-container,
+            .episode-card,
+            .episode-details,
+            .footer-content {
+                width: 100%;
+                max-width: 100%;
+            }
             .section-title {
                 font-size: 1.8rem;
             }
@@ -720,7 +775,7 @@
 <!-- Episodes Section -->
 <section class="episodes-section" id="episodes">
     <h2 class="section-title">Épisodes</h2>
-    <div id="podcast-episodes" class="episodes-container">
+    <div id="podcast-episodes" class="episodes-container" style="width: 100%; max-width: 100%; box-sizing: border-box;">
         <div class="loading-indicator">
             <i class="fas fa-podcast fa-spin"></i>
             <p>Chargement des épisodes...</p>
