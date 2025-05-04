@@ -5,5 +5,9 @@ handlers:
     static_files: static/\1
     upload: static/.*\.(png|jpg|ico)$
 
+  - url: /(.*\.(css|js))$
+    static_files: web/\1
+    upload: web/.*\.(css|js)$
+
   - url: /.*
     script: auto

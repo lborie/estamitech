@@ -31,7 +31,10 @@ type Item struct {
 
 func main() {
 	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
-		http.ServeFile(writer, request, "index.html")
+		http.ServeFile(writer, request, "web/index.html")
+	})
+	http.HandleFunc("/devlille", func(writer http.ResponseWriter, request *http.Request) {
+		http.ServeFile(writer, request, "web/devlille.html")
 	})
 	http.HandleFunc("/rss", func(writer http.ResponseWriter, request *http.Request) {
 		response, err := http.DefaultClient.Get(estamitechRss)
