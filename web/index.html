@@ -276,7 +276,7 @@
 
             episodeElement.innerHTML = `
                     <div class="episode-image">
-                        <img src="${episode.Image.Href}" alt="Miniature de l'épisode - ${episode.Title}">
+                        <a href="${episode.Link}" target="_blank"><img src="${episode.Image.Href}" alt="Miniature de l'épisode - ${episode.Title}"></a>
                     </div>
                     <div class="episode-details">
                         <h3 class="episode-title">${episode.Title}</h3>

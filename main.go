@@ -22,6 +22,7 @@ type Channel struct {
 
 type Item struct {
 	Title       string `xml:"title"`
+	Link        string `xml:"link"`
 	PubDate     string `xml:"pubDate"`
 	Description string `xml:"description"`
 	Image       struct {
