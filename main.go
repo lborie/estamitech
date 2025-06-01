@@ -82,14 +82,7 @@ func main() {
 		writer.WriteHeader(http.StatusOK)
 		_, _ = writer.Write(itemsJson)
 	})
-	
-	// Serve static files
-	fs := http.FileServer(http.Dir("./"))
-	http.Handle("/static/", fs)
-	http.Handle("/style.css", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "web/style.css")
-	}))
-	
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
