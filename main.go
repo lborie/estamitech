@@ -28,6 +28,11 @@ type Item struct {
 	Image       struct {
 		Href string `xml:"href,attr"`
 	} `xml:"itunes_image"`
+	Enclosure struct {
+		URL  string `xml:"url,attr"`
+		Type string `xml:"type,attr"`
+	} `xml:"enclosure"`
+	GUID string `xml:"guid"`
 }
 
 func main() {
@@ -36,6 +41,9 @@ func main() {
 	})
 	http.HandleFunc("/devlille", func(writer http.ResponseWriter, request *http.Request) {
 		http.ServeFile(writer, request, "web/devlille.html")
+	})
+	http.HandleFunc("/episode", func(writer http.ResponseWriter, request *http.Request) {
+		http.ServeFile(writer, request, "web/episode.html")
 	})
 	http.HandleFunc("/rss", func(writer http.ResponseWriter, request *http.Request) {
 		response, err := http.DefaultClient.Get(estamitechRss)
@@ -74,6 +82,14 @@ func main() {
 		writer.WriteHeader(http.StatusOK)
 		_, _ = writer.Write(itemsJson)
 	})
+	
+	// Serve static files
+	fs := http.FileServer(http.Dir("./"))
+	http.Handle("/static/", fs)
+	http.Handle("/style.css", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "web/style.css")
+	}))
+	
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Écoutez cet épisode de L'Estamitech - Le podcast qui met la tech du Nord à l'honneur.">
+    <meta name="keywords" content="podcast, tech, nord, estaminet, ludovic borie, épisode">
+    <meta name="author" content="Ludovic Borie">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta name="theme-color" content="#5d1692">
+    <meta property="og:title" content="L'Estamitech - Épisode">
+    <meta property="og:description" content="Écoutez cet épisode de L'Estamitech - Le podcast qui met la tech du Nord à l'honneur.">
+    <meta property="og:image" content="/static/LogoEstamitech.jpg">
+    <meta property="og:url" content="https://estamitech.fr">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:site_name" content="L'Estamitech">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>L'ESTAMITECH - Épisode</title>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="navbar-logo">
+        <img src="/static/LogoEstamitech.jpg" alt="Logo Estamitech">
+        <h1>L'<span style="color: var(--text-light);">ESTAMI</span><span style="color: var(--accent-tech);">TECH</span></h1>
+    </div>
+    <div class="navbar-links">
+        <a href="/">Accueil</a>
+        <a href="/#about">À propos</a>
+        <a href="/#recommendations">Recommandations</a>
+        <a href="/#episodes">Épisodes</a>
+    </div>
+    <div class="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</nav>
+
+<div class="episode-container">
+    <a href="/#episodes" class="back-link">
+        <i class="fas fa-arrow-left"></i>
+        Retour aux épisodes
+    </a>
+    
+    <div class="episode-header">
+        <h1 id="episode-title">Chargement...</h1>
+        <div class="episode-meta">
+            <span id="episode-date"><i class="far fa-calendar-alt"></i> Chargement...</span>
+        </div>
+    </div>
+    
+    <div class="episode-content">
+        <div class="episode-image-container">
+            <img id="episode-image" src="/static/LogoEstamitech.jpg" alt="Miniature de l'épisode">
+        </div>
+        
+        <div class="episode-info">
+            <div class="audio-player">
+                <h3>Écouter l'épisode</h3>
+                <audio id="episode-audio" controls>
+                    <source src="" type="audio/mpeg">
+                    Votre navigateur ne supporte pas l'élément audio.
+                </audio>
+                
+                <div class="podcast-links">
+                    <a href="https://podcasts.apple.com/us/podcast/lestamitech/id1752308502?itsct=podcast_box_badge&amp;itscg=30200&amp;ls=1">
+                        <img src="https://tools.applemediaservices.com/api/badges/listen-on-apple-podcasts/badge/fr-fr?size=250x83&amp;releaseDate=1725395040" alt="Listen on Apple Podcasts" style="height: 40px;">
+                    </a>
+                    <a href="https://open.spotify.com/show/1308v72DAlbYP13TA5au1I">
+                        <img src="/static/spotify-podcast-badge-blk-grn-165x40.png" alt="Listen on Spotify" style="height: 40px;">
+                    </a>
+                    <button class="rss-btn" onclick="copyRSSLink()" title="Copier le lien RSS">
+                        <i class="fas fa-rss"></i>
+                        <span>RSS</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="episode-description">
+        <h3>Description</h3>
+        <div id="episode-description">
+            <p>Chargement...</p>
+        </div>
+    </div>
+    
+
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-logo">
+            <img src="/static/LogoEstamitech.jpg" alt="Logo Estamitech">
+        </div>
+        <p>L'<span style="color: var(--text-light);">ESTAMI</span><span style="color: var(--accent-tech);">TECH</span> - La Tech du Nord</p>
+        <div class="footer-links">
+            <a href="https://www.linkedin.com/in/ludovicborie/"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="https://piaille.fr/@bodul"><i class="fab fa-mastodon"></i> Mastodon</a>
+            <a href="https://twitter.com/ludovicborie"><i class="fab fa-twitter"></i> Twitter</a>
+            <a href="https://www.instagram.com/estamitech/"><i class="fab fa-instagram"></i> Instagram</a>
+            <a href="https://www.youtube.com/@EstamiTech"><i class="fab fa-youtube"></i> YouTube</a>
+            <a href="https://www.tiktok.com/@estamitech"><i class="fab fa-tiktok"></i> TikTok</a>
+            <a href="https://bsky.app/profile/estamitech.bsky.social"><i class="fab fa-bluesky"></i> Bluesky</a>
+        </div>
+        <div class="copyright">
+            &copy; <span id="current-year"></span> L'Estamitech - Tous droits réservés
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Toggle mobile menu
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navbarLinks = document.querySelector('.navbar-links');
+
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        navbarLinks.classList.toggle('active');
+    });
+
+    // Get episode ID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const rawEpisodeId = urlParams.get('id');
+    
+    // Validate and sanitize episode ID
+    function validateEpisodeId(id) {
+        if (!id) return null;
+        // Remove any potentially dangerous characters
+        // Allow only alphanumeric, hyphens, underscores, and dots
+        return id.replace(/[^a-zA-Z0-9\-_.]/g, '');
+    }
+    
+    const episodeId = validateEpisodeId(rawEpisodeId);
+
+    // Load episode data
+    function loadEpisode() {
+        if (!episodeId) {
+            displayError();
+            return;
+        }
+        
+        fetch('/rss')
+            .then(response => response.json())
+            .then(episodes => {
+                // Find episode by GUID first, then by Link as fallback
+                const episode = episodes.find(ep => ep.GUID === episodeId || ep.Link === episodeId);
+                
+                if (episode) {
+                    displayEpisode(episode);
+                } else {
+                    displayError();
+                }
+            })
+            .catch(error => {
+                console.error('Error loading episode:', error);
+                displayError();
+            });
+    }
+
+    function displayEpisode(episode) {
+        // Update page title
+        document.title = `${episode.Title} - L'ESTAMITECH`;
+        
+        // Update meta tags
+        document.querySelector('meta[property="og:title"]').content = `${episode.Title} - L'ESTAMITECH`;
+        document.querySelector('meta[property="og:description"]').content = episode.Description;
+        document.querySelector('meta[property="og:image"]').content = episode.Image.Href;
+        
+        // Update episode content
+        document.getElementById('episode-title').textContent = episode.Title;
+        
+        const date = new Date(episode.PubDate);
+        const formattedDate = date.toLocaleDateString('fr-FR', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+        });
+        document.getElementById('episode-date').innerHTML = `<i class="far fa-calendar-alt"></i> ${formattedDate}`;
+        
+        document.getElementById('episode-image').src = episode.Image.Href;
+        document.getElementById('episode-image').alt = `Miniature de l'épisode - ${episode.Title}`;
+        
+        // Use the audio URL from the enclosure
+        if (episode.Enclosure && episode.Enclosure.URL) {
+            document.getElementById('episode-audio').src = episode.Enclosure.URL;
+        } else {
+            // Fallback to episode link if no enclosure
+            document.getElementById('episode-audio').src = episode.Link;
+        }
+        
+        document.getElementById('episode-description').innerHTML = episode.Description;
+    }
+
+    function displayError() {
+        document.getElementById('episode-title').textContent = 'Épisode non trouvé';
+        document.getElementById('episode-date').innerHTML = '';
+        document.getElementById('episode-description').innerHTML = '<p>Désolé, cet épisode n\'a pas pu être chargé.</p>';
+    }
+
+
+
+    function copyRSSLink() {
+        const rssLink = 'https://feeds.zencastr.com/f/bOMlUWx6.rss';
+        
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(rssLink).then(() => {
+                showToast('Lien RSS copié dans le presse-papier!');
+            }).catch(() => {
+                fallbackCopyTextToClipboard(rssLink);
+            });
+        } else {
+            fallbackCopyTextToClipboard(rssLink);
+        }
+    }
+
+    function fallbackCopyTextToClipboard(text) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.top = 0;
+        textArea.style.left = 0;
+        textArea.style.width = "2em";
+        textArea.style.height = "2em";
+        textArea.style.padding = 0;
+        textArea.style.border = "none";
+        textArea.style.outline = "none";
+        textArea.style.boxShadow = "none";
+        textArea.style.background = "transparent";
+        
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+            const successful = document.execCommand('copy');
+            if (successful) {
+                showToast('Lien copié!');
+            } else {
+                showToast('Impossible de copier le lien');
+            }
+        } catch (err) {
+            showToast('Impossible de copier le lien');
+        }
+        
+        document.body.removeChild(textArea);
+    }
+
+    function showToast(message) {
+        const existingToast = document.querySelector('.toast');
+        if (existingToast) {
+            existingToast.remove();
+        }
+        
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.classList.add('show');
+        }, 10);
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        }, 3000);
+    }
+
+    // Set current year
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    // Load episode on page load
+    loadEpisode();
+</script>
+</body>
+</html>

@@ -358,12 +358,16 @@
             const episodeElement = document.createElement('div');
             episodeElement.classList.add('episode-card');
 
+            // Create unique ID for the episode (using GUID)
+            const episodeId = episode.GUID || episode.Link; // Fallback to Link if no GUID
+            const episodePageUrl = `/episode?id=${encodeURIComponent(episodeId)}`;
+            
             episodeElement.innerHTML = `
                     <div class="episode-image">
-                        <a href="${episode.Link}" target="_blank"><img src="${episode.Image.Href}" alt="Miniature de l'épisode - ${episode.Title}"></a>
+                        <a href="${episodePageUrl}"><img src="${episode.Image.Href}" alt="Miniature de l'épisode - ${episode.Title}"></a>
                     </div>
                     <div class="episode-details">
-                        <h3 class="episode-title">${episode.Title}</h3>
+                        <h3 class="episode-title"><a href="${episodePageUrl}" style="text-decoration: none; color: inherit;">${episode.Title}</a></h3>
                         <div class="episode-meta">
                             <span><i class="far fa-calendar-alt"></i> ${formattedDate}</span>
                         </div>
