@@ -9,10 +9,20 @@ import (
 	"os"
 	"regexp"
 	"strings"
+	"sync"
 	"time"
 )
 
 const estamitechRss = "https://feeds.zencastr.com/f/bOMlUWx6.rss"
+
+// Cache structure
+type RSSCache struct {
+	data      []Item
+	timestamp time.Time
+	mutex     sync.RWMutex
+}
+
+var rssCache = &RSSCache{}
 
 type Rss struct {
 	Channel Channel `xml:"channel"`
@@ -56,6 +66,24 @@ type EpisodeItem struct {
 }
 
 func getRSSData() ([]Item, error) {
+	rssCache.mutex.RLock()
+	// Vérifier si le cache est valide (moins de 30 secondes)
+	if time.Since(rssCache.timestamp) < 30*time.Second && rssCache.data != nil {
+		data := rssCache.data
+		rssCache.mutex.RUnlock()
+		return data, nil
+	}
+	rssCache.mutex.RUnlock()
+
+	// Cache expiré ou vide, récupérer les données
+	rssCache.mutex.Lock()
+	defer rssCache.mutex.Unlock()
+
+	// Double vérification après avoir acquis le verrou d'écriture
+	if time.Since(rssCache.timestamp) < 30*time.Second && rssCache.data != nil {
+		return rssCache.data, nil
+	}
+
 	response, err := http.DefaultClient.Get(estamitechRss)
 	if err != nil {
 		return nil, err
@@ -76,7 +104,11 @@ func getRSSData() ([]Item, error) {
 		return nil, err
 	}
 
-	return rss.Channel.Items, nil
+	// Mettre à jour le cache
+	rssCache.data = rss.Channel.Items
+	rssCache.timestamp = time.Now()
+
+	return rssCache.data, nil
 }
 
 func cleanDescription(desc string) string {
