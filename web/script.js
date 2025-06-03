@@ -116,9 +116,23 @@ function loadEpisode() {
 function displayEpisode(episode) {
     document.title = `${episode.Title} - L'ESTAMITECH`;
     
+    // Nettoyer la description pour les meta tags (enlever le HTML)
+    const cleanDescription = episode.Description.replace(/<[^>]*>/g, '').trim();
+    const truncatedDescription = cleanDescription.length > 160 ? cleanDescription.substring(0, 157) + '...' : cleanDescription;
+    
+    // Mise à jour des meta tags Open Graph
     document.querySelector('meta[property="og:title"]').content = `${episode.Title} - L'ESTAMITECH`;
-    document.querySelector('meta[property="og:description"]').content = episode.Description;
+    document.querySelector('meta[property="og:description"]').content = truncatedDescription;
     document.querySelector('meta[property="og:image"]').content = episode.Image.Href;
+    document.querySelector('meta[property="og:url"]').content = window.location.href;
+    
+    // Mise à jour des meta tags Twitter
+    document.querySelector('meta[name="twitter:title"]').content = `${episode.Title} - L'ESTAMITECH`;
+    document.querySelector('meta[name="twitter:description"]').content = truncatedDescription;
+    document.querySelector('meta[name="twitter:image"]').content = episode.Image.Href;
+    
+    // Mise à jour de la meta description standard
+    document.querySelector('meta[name="description"]').content = truncatedDescription;
     
     document.getElementById('episode-title').textContent = episode.Title;
     
