@@ -12,14 +12,16 @@ L'Estamitech est un podcast dédié à la tech du Nord de la France. Chaque épi
 
 Le site web [estamitech.fr](https://estamitech.fr) sert de vitrine pour le podcast, proposant :
 - Une présentation du podcast et de son créateur
-- La liste des épisodes récents
+- La liste des épisodes avec pages individuelles optimisées SEO
 - Une carte interactive des recommandations des invités
 - Des liens vers toutes les plateformes d'écoute
+- Un partage social optimisé avec miniatures d'épisodes
 
 ## 🚀 Technologies utilisées
 
-- **Backend** : Go 1.23
-- **Frontend** : HTML5, CSS3, JavaScript vanilla
+- **Backend** : Go 1.23 avec templates HTML/CSS
+- **Server-Side Rendering** : Pages générées côté serveur avec cache RSS (30s)
+- **Frontend** : HTML5, CSS3, JavaScript vanilla minimal
 - **Hébergement** : Google App Engine
 - **RSS** : Intégration avec Zencastr pour les épisodes
 - **Cartes** : Framacarte pour les recommandations
@@ -28,7 +30,7 @@ Le site web [estamitech.fr](https://estamitech.fr) sert de vitrine pour le podca
 
 ```
 estamitech/
-├── main.go              # Serveur HTTP principal
+├── main.go              # Serveur HTTP principal avec cache RSS
 ├── go.mod               # Dépendances Go
 ├── app.yaml             # Configuration Google App Engine
 ├── Makefile             # Scripts de développement et déploiement
@@ -36,9 +38,11 @@ estamitech/
 │   ├── LogoEstamitech.jpg
 │   ├── favicon.ico
 │   └── spotify-podcast-badge-blk-grn-165x40.png
-└── web/                 # Fichiers web
-    ├── index.html       # Page principale
-    └── style.css        # Styles CSS
+└── web/                 # Templates et assets web
+    ├── index.gohtml     # Template page d'accueil
+    ├── episode.gohtml   # Template page épisode
+    ├── script.js        # JavaScript minimal
+    └── style.css        # Styles CSS optimisés
 ```
 
 ## 🛠️ Installation et développement
@@ -81,29 +85,20 @@ export ESTAMITECH_PROJECT_ID="votre-project-id"
 make deploy
 ```
 
-## 🔧 API Endpoints
+## 🔧 Endpoints et fonctionnalités
 
 Le serveur expose plusieurs endpoints :
 
-- `GET /` - Page d'accueil du podcast
-- `GET /rss` - API JSON pour récupérer les épisodes du podcast
+- `GET /` - Page d'accueil générée côté serveur avec liste des épisodes
+- `GET /episode/{id}` - Page individuelle d'épisode avec métadonnées Open Graph
 
-### Endpoint RSS
+### Fonctionnalités principales
 
-L'endpoint `/rss` récupère le flux RSS depuis Zencastr et le convertit en JSON :
-
-```json
-[
-  {
-    "Title": "Titre de l'épisode",
-    "PubDate": "Date de publication",
-    "Description": "Description de l'épisode",
-    "Image": {
-      "Href": "URL de l'image"
-    }
-  }
-]
-```
+- **Server-Side Rendering** : Pages HTML générées côté serveur avec données RSS
+- **Cache intelligent** : Cache RSS de 30 secondes avec gestion de la concurrence
+- **URLs propres** : `/episode/{id}` au lieu de query parameters
+- **SEO optimisé** : Métadonnées Open Graph et Twitter Cards dynamiques
+- **Partage social** : Miniatures et descriptions spécifiques par épisode
 
 ## 📝 Variables d'environnement
 
