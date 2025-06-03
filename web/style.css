@@ -81,6 +81,19 @@ h1, h2, h3 {
     gap: var(--spacing-sm);
 }
 
+.navbar-logo a {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    text-decoration: none;
+    color: inherit;
+    transition: opacity var(--transition-speed);
+}
+
+.navbar-logo a:hover {
+    opacity: 0.8;
+}
+
 .navbar-logo img {
     height: 50px;
     border-radius: var(--radius-sm);
@@ -199,6 +212,7 @@ h1, h2, h3 {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+    scroll-margin-top: 80px;
 }
 
 .section-title {
@@ -346,6 +360,7 @@ h1, h2, h3 {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+    scroll-margin-top: 80px;
 }
 
 .episode-card {
@@ -479,23 +494,6 @@ h1, h2, h3 {
     line-height: 1.7;
 }
 
-/* Loading State */
-.loading-indicator {
-    text-align: center;
-    padding: var(--spacing-lg);
-    color: var(--gray-medium);
-}
-
-.loading-indicator i {
-    font-size: 2rem;
-    margin-bottom: var(--spacing-sm);
-    animation: spin 1.5s infinite linear;
-}
-
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
 
 /* Footer */
 footer {

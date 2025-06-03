@@ -11,7 +11,7 @@
     <meta name="theme-color" content="#5d1692">
     <meta property="og:title" content="L'Estamitech">
     <meta property="og:description" content="L'Estamitech est un podcast par Ludovic Borie. Chaque épisode met en avant un projet, une initiative dont nous pouvons discuter tech dans la bonne humeur et sans langue de bois.">
-    <meta property="og:image" content="static/LogoEstamitech.jpg">
+    <meta property="og:image" content="/static/LogoEstamitech.jpg">
     <meta property="og:url" content="https://estamitech.fr">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="fr_FR">
@@ -21,19 +21,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     <title>L'ESTAMITECH - La Tech du Nord</title>
 </head>
 <body>
 <!-- Navbar -->
 <nav class="navbar">
     <div class="navbar-logo">
-        <img src="/static/LogoEstamitech.jpg" alt="Logo Estamitech">
-        <h1>L'<span style="color: var(--text-light);">ESTAMI</span><span style="color: var(--accent-tech);">TECH</span></h1>
+        <a href="/">
+            <img src="/static/LogoEstamitech.jpg" alt="Logo Estamitech">
+            <h1>L'<span style="color: var(--text-light);">ESTAMI</span><span style="color: var(--accent-tech);">TECH</span></h1>
+        </a>
     </div>
     <div class="navbar-links">
         <a href="#about">À propos</a>
-        <a href="#recommendations">Recommandations</a>
         <a href="#episodes">Épisodes</a>
     </div>
     <div class="menu-toggle">
@@ -123,11 +124,29 @@
 <!-- Episodes Section -->
 <section class="episodes-section" id="episodes">
     <h2 class="section-title">Épisodes</h2>
-    <div id="podcast-episodes" class="episodes-container" style="width: 100%; max-width: 100%; box-sizing: border-box;">
-        <div class="loading-indicator">
-            <i class="fas fa-podcast fa-spin"></i>
-            <p>Chargement des épisodes...</p>
+    <div class="episodes-container">
+        {{range .Episodes}}
+        <div class="episode-card">
+            <div class="episode-image">
+                <a href="/episode/{{.GUID}}"><img src="{{.Image.Href}}" alt="Miniature de l'épisode - {{.Title}}"></a>
+            </div>
+            <div class="episode-details">
+                <div class="episode-content-top">
+                    <h3 class="episode-title"><a href="/episode/{{.GUID}}" style="text-decoration: none; color: inherit;">{{.Title}}</a></h3>
+                    <div class="episode-meta">
+                        <span><i class="far fa-calendar-alt"></i> {{.FormattedDate}}</span>
+                    </div>
+                    <div class="episode-description">{{.CleanDesc}}</div>
+                </div>
+                <div class="episode-actions">
+                    <a href="/episode/{{.GUID}}" class="see-more-btn">
+                        <i class="fas fa-eye"></i>
+                        Voir plus
+                    </a>
+                </div>
+            </div>
         </div>
+        {{end}}
     </div>
 </section>
 
@@ -148,7 +167,7 @@
             <a href="https://bsky.app/profile/estamitech.bsky.social"><i class="fab fa-bluesky"></i> Bluesky</a>
         </div>
         <div class="copyright">
-            &copy; <span id="current-year"></span> L'Estamitech - Tous droits réservés
+            &copy; {{.CurrentYear}} L'Estamitech - Tous droits réservés
         </div>
     </div>
 </footer>
@@ -158,10 +177,62 @@
     <i class="fas fa-arrow-up"></i>
 </a>
 
-<script src="script.js"></script>
+<script src="/script.js"></script>
 <script>
-    // Initialize index page functionality
-    initializeIndexPage();
+    // Navigation mobile
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navbarLinks = document.querySelector('.navbar-links');
+
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        navbarLinks.classList.toggle('active');
+    });
+
+    // Close the menu when clicking on a link
+    document.querySelectorAll('.navbar-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            navbarLinks.classList.remove('active');
+        });
+    });
+
+    // Back to Top button visibility
+    const backToTopButton = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTopButton.classList.add('visible');
+        } else {
+            backToTopButton.classList.remove('visible');
+        }
+    });
+
+    backToTopButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            if (this.getAttribute('href') !== '#') {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
 </script>
 </body>
 </html>
