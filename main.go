@@ -39,9 +39,6 @@ func main() {
 	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
 		http.ServeFile(writer, request, "web/index.html")
 	})
-	http.HandleFunc("/devlille", func(writer http.ResponseWriter, request *http.Request) {
-		http.ServeFile(writer, request, "web/devlille.html")
-	})
 	http.HandleFunc("/episode", func(writer http.ResponseWriter, request *http.Request) {
 		http.ServeFile(writer, request, "web/episode.html")
 	})
