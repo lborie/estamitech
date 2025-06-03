@@ -268,11 +268,19 @@ function displayEpisodes(episodes) {
                 <a href="${episodePageUrl}"><img src="${episode.Image.Href}" alt="Miniature de l'épisode - ${episode.Title}"></a>
             </div>
             <div class="episode-details">
-                <h3 class="episode-title"><a href="${episodePageUrl}" style="text-decoration: none; color: inherit;">${episode.Title}</a></h3>
-                <div class="episode-meta">
-                    <span><i class="far fa-calendar-alt"></i> ${formattedDate}</span>
+                <div class="episode-content-top">
+                    <h3 class="episode-title"><a href="${episodePageUrl}" style="text-decoration: none; color: inherit;">${episode.Title}</a></h3>
+                    <div class="episode-meta">
+                        <span><i class="far fa-calendar-alt"></i> ${formattedDate}</span>
+                    </div>
+                    <div class="episode-description">${episode.Description}</div>
                 </div>
-                <div class="episode-description">${episode.Description}</div>
+                <div class="episode-actions">
+                    <a href="${episodePageUrl}" class="see-more-btn">
+                        <i class="fas fa-eye"></i>
+                        Voir plus
+                    </a>
+                </div>
             </div>
         `;
 

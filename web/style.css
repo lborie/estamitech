@@ -397,6 +397,7 @@ h1, h2, h3 {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+    height: 280px;
 }
 
 .episode-card:hover {
@@ -435,7 +436,52 @@ h1, h2, h3 {
     padding: var(--spacing-md);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.episode-content-top {
+    flex: 1;
+    overflow: hidden;
+}
+
+.episode-actions {
+    margin-top: var(--spacing-sm);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--gray-light);
+}
+
+.episode-card .episode-description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    line-height: 1.5;
+    max-height: 4.5em;
+}
+
+.see-more-btn {
+    background: var(--gradient-bg);
+    color: var(--text-light);
+    border: none;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all var(--transition-speed);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.see-more-btn:hover {
+    background: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(93, 22, 146, 0.3);
 }
 
 .episode-title {
