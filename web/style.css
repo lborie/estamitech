@@ -60,29 +60,6 @@ h1, h2, h3 {
 }
 
 /* Common Classes */
-.container {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-}
-
-.flex-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.transition-all {
-    transition: all var(--transition-speed);
-}
-
-.transition-transform {
-    transition: transform var(--transition-speed);
-}
-
-.transition-color {
-    transition: color var(--transition-speed);
-}
 
 /* Navbar */
 .navbar {
@@ -215,21 +192,6 @@ h1, h2, h3 {
     opacity: 0.9;
 }
 
-.hero-cta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-sm);
-    justify-content: center;
-    margin-top: var(--spacing-sm);
-}
-
-.hero-cta a {
-    transition: transform var(--transition-speed);
-}
-
-.hero-cta a:hover {
-    transform: translateY(-5px);
-}
 
 /* Main Content */
 .main-content {
@@ -782,7 +744,6 @@ footer {
     .grid-container,
     .card,
     .card-content,
-    .episodes-container,
     .episode-card,
     .episode-details,
     .footer-content {
@@ -818,10 +779,6 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .hero-cta {
-        align-items: center;
-    }
-
     .rss-btn {
         width: auto;
     }
@@ -898,7 +855,6 @@ footer {
     .grid-container,
     .card,
     .card-content,
-    .episodes-container,
     .episode-card,
     .episode-details,
     .footer-content {
