@@ -225,6 +225,43 @@ func main() {
 			return
 		}
 	})
+	http.HandleFunc("/sitemap.xml", func(writer http.ResponseWriter, request *http.Request) {
+		episodes, err := getRSSData()
+		if err != nil {
+			log.Printf("Error getting RSS data for sitemap: %v", err)
+			writer.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+
+		writer.Header().Set("Content-Type", "application/xml; charset=utf-8")
+		writer.WriteHeader(http.StatusOK)
+
+		// En-tête XML et sitemap
+		_, _ = writer.Write([]byte(`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<url>
+		<loc>https://estamitech.fr/</loc>
+		<lastmod>` + time.Now().Format("2006-01-02") + `</lastmod>
+		<changefreq>daily</changefreq>
+		<priority>1.0</priority>
+	</url>`))
+
+		// Ajouter chaque épisode
+		for _, episode := range episodes {
+			pubDate, _ := time.Parse(time.RFC1123, episode.PubDate)
+			_, _ = writer.Write([]byte(`
+	<url>
+		<loc>https://estamitech.fr/episode/` + episode.GUID + `</loc>
+		<lastmod>` + pubDate.Format("2006-01-02") + `</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.8</priority>
+	</url>`))
+		}
+
+		// Fermeture du sitemap
+		_, _ = writer.Write([]byte(`
+</urlset>`))
+	})
 
 	port := os.Getenv("PORT")
 	if port == "" {

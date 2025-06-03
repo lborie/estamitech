@@ -91,14 +91,26 @@ Le serveur expose plusieurs endpoints :
 
 - `GET /` - Page d'accueil générée côté serveur avec liste des épisodes
 - `GET /episode/{id}` - Page individuelle d'épisode avec métadonnées Open Graph
+- `GET /sitemap.xml` - Sitemap XML automatique pour le SEO
 
 ### Fonctionnalités principales
 
 - **Server-Side Rendering** : Pages HTML générées côté serveur avec données RSS
 - **Cache intelligent** : Cache RSS de 30 secondes avec gestion de la concurrence
 - **URLs propres** : `/episode/{id}` au lieu de query parameters
-- **SEO optimisé** : Métadonnées Open Graph et Twitter Cards dynamiques
+- **SEO optimisé** : Métadonnées Open Graph, Twitter Cards et sitemap XML automatique
 - **Partage social** : Miniatures et descriptions spécifiques par épisode
+- **Indexation automatique** : Sitemap XML généré dynamiquement avec tous les épisodes
+
+### Sitemap SEO
+
+L'endpoint `/sitemap.xml` génère automatiquement un sitemap XML conforme aux standards :
+
+- **Page d'accueil** : Priorité 1.0, mise à jour quotidienne
+- **Pages d'épisodes** : Priorité 0.8, mise à jour mensuelle  
+- **Dates de modification** : Basées sur les dates de publication des épisodes
+- **URLs canoniques** : Format `/episode/{id}` pour tous les épisodes
+- **Cache intelligent** : Utilise le même cache RSS de 30s pour les performances
 
 ## 📝 Variables d'environnement
 
