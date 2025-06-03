@@ -7,8 +7,58 @@ menuToggle.addEventListener('click', () => {
     navbarLinks.classList.toggle('active');
 });
 
+// Close the menu when clicking on a link (for index page)
+document.querySelectorAll('.navbar-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        navbarLinks.classList.remove('active');
+    });
+});
+
 // Set current year in footer
-document.getElementById('current-year').textContent = new Date().getFullYear();
+const currentYearElement = document.getElementById('current-year');
+if (currentYearElement) {
+    currentYearElement.textContent = new Date().getFullYear();
+}
+
+// Back to Top button functionality (for index page)
+const backToTopButton = document.getElementById('back-to-top');
+if (backToTopButton) {
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            backToTopButton.classList.add('visible');
+        } else {
+            backToTopButton.classList.remove('visible');
+        }
+    });
+
+    backToTopButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+// Smooth scrolling for anchor links (for index page)
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        if (this.getAttribute('href') !== '#') {
+            e.preventDefault();
+
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    });
+});
 
 // Copy RSS link to clipboard
 function copyRSSLink() {
