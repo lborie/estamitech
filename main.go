@@ -3,6 +3,10 @@ package main
 import (
 	"encoding/xml"
 	"html/template"
+	"image"
+	"image/color"
+	_ "image/jpeg"
+	_ "image/png"
 	"io"
 	"log"
 	"net/http"
@@ -11,6 +15,8 @@ import (
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/fogleman/gg"
 )
 
 const estamitechRss = "https://feeds.zencastr.com/f/bOMlUWx6.rss"
@@ -173,6 +179,84 @@ func main() {
 			log.Printf("Error executing template: %v", err)
 			http.ServeFile(writer, request, "web/index.html")
 			return
+		}
+	})
+	http.HandleFunc("/og-image/", func(writer http.ResponseWriter, request *http.Request) {
+		// Extraire l'ID de l'épisode depuis le path
+		path := strings.TrimPrefix(request.URL.Path, "/og-image/")
+		if path == "" {
+			http.NotFound(writer, request)
+			return
+		}
+		episodeID := path
+
+		// Récupérer les données RSS
+		episodes, err := getRSSData()
+		if err != nil {
+			log.Printf("Error getting RSS data: %v", err)
+			http.NotFound(writer, request)
+			return
+		}
+
+		// Trouver l'épisode
+		episode := findEpisodeByID(episodes, episodeID)
+		if episode == nil {
+			http.NotFound(writer, request)
+			return
+		}
+
+		// Télécharger l'image originale
+		resp, err := http.Get(episode.Image.Href)
+		if err != nil {
+			log.Printf("Error downloading image: %v", err)
+			http.NotFound(writer, request)
+			return
+		}
+		defer resp.Body.Close()
+
+		// Décoder l'image
+		srcImg, _, err := image.Decode(resp.Body)
+		if err != nil {
+			log.Printf("Error decoding image: %v", err)
+			http.NotFound(writer, request)
+			return
+		}
+
+		// Créer un nouveau contexte de dessin 1200x630
+		dc := gg.NewContext(1200, 630)
+
+		// Définir la couleur de fond (violet foncé comme votre site)
+		dc.SetColor(color.RGBA{93, 22, 146, 255}) // #5d1692
+		dc.Clear()
+
+		// Calculer la taille pour l'image carrée centrée (500x500 pour garder de la marge)
+		imgSize := 500
+		x := (1200 - imgSize) / 2
+		y := (630 - imgSize) / 2
+
+		// Calculer le facteur de redimensionnement
+		bounds := srcImg.Bounds()
+		srcWidth := bounds.Dx()
+		srcHeight := bounds.Dy()
+		scale := float64(imgSize) / float64(srcWidth)
+		if srcHeight > srcWidth {
+			scale = float64(imgSize) / float64(srcHeight)
+		}
+
+		// Redimensionner et dessiner l'image centrée
+		dc.Push()
+		dc.Translate(float64(x+imgSize/2), float64(y+imgSize/2))
+		dc.Scale(scale, scale)
+		dc.DrawImageAnchored(srcImg, 0, 0, 0.5, 0.5)
+		dc.Pop()
+
+		// Encoder et envoyer l'image
+		writer.Header().Set("Content-Type", "image/png")
+		writer.Header().Set("Cache-Control", "public, max-age=86400") // Cache for 24 hours
+		err = dc.EncodePNG(writer)
+		if err != nil {
+			log.Printf("Error encoding PNG: %v", err)
+			http.Error(writer, "Internal Server Error", http.StatusInternalServerError)
 		}
 	})
 	http.HandleFunc("/episode/", func(writer http.ResponseWriter, request *http.Request) {
