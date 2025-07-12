@@ -225,9 +225,17 @@ func main() {
 		// Créer un nouveau contexte de dessin 1200x630
 		dc := gg.NewContext(1200, 630)
 
-		// Définir la couleur de fond (violet foncé comme votre site)
-		dc.SetColor(color.RGBA{93, 22, 146, 255}) // #5d1692
-		dc.Clear()
+		// Charger l'image de fond estamitech-bckg.png
+		bgImg, err := gg.LoadImage("static/estamitech-bckg.png")
+		if err != nil {
+			log.Printf("Error loading background image: %v", err)
+			// Fallback vers le fond violet
+			dc.SetColor(color.RGBA{93, 22, 146, 255}) // #5d1692
+			dc.Clear()
+		} else {
+			// Redimensionner l'image de fond pour couvrir 1200x630
+			dc.DrawImageAnchored(bgImg, 600, 315, 0.5, 0.5)
+		}
 
 		// Calculer la taille pour l'image carrée centrée (500x500 pour garder de la marge)
 		imgSize := 500
