@@ -50,7 +50,20 @@ type Item struct {
 		URL  string `xml:"url,attr"`
 		Type string `xml:"type,attr"`
 	} `xml:"enclosure"`
-	GUID string `xml:"guid"`
+	GUID        string `xml:"guid"`
+	Author      string `xml:"itunes_author"`
+	Duration    string `xml:"itunes_duration"`
+	Episode     string `xml:"itunes_episode"`
+	Season      string `xml:"itunes_season"`
+	Summary     string `xml:"itunes_summary"`
+	EpisodeType string `xml:"itunes_episodeType"`
+	Explicit    string `xml:"itunes_explicit"`
+	Keywords    string `xml:"itunes_keywords"`
+	Category    string `xml:"itunes_category"`
+	Owner       struct {
+		Name  string `xml:"itunes_name"`
+		Email string `xml:"itunes_email"`
+	} `xml:"itunes_owner"`
 }
 
 type EpisodePageData struct {
@@ -353,6 +366,14 @@ func main() {
 		// Fermeture du sitemap
 		_, _ = writer.Write([]byte(`
 </urlset>`))
+	})
+
+	http.HandleFunc("/robots.txt", func(writer http.ResponseWriter, request *http.Request) {
+		writer.Header().Set("Content-Type", "text/plain")
+		writer.Write([]byte(`User-agent: *
+Allow: /
+
+Sitemap: https://estamitech.fr/sitemap.xml`))
 	})
 
 	port := os.Getenv("PORT")

@@ -35,6 +35,48 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link rel="stylesheet" href="/style.css">
     <title>{{.Episode.Title}} - L'EstamiTech</title>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "PodcastEpisode",
+      "name": "{{.Episode.Title}}",
+      "description": "{{.CleanDesc}}",
+      "url": "https://estamitech.fr/episode/{{.Episode.GUID}}",
+      "datePublished": "{{.Episode.PubDate}}",
+      {{if .Episode.Duration}}"duration": "{{.Episode.Duration}}",{{end}}
+      {{if .Episode.Episode}}"episodeNumber": "{{.Episode.Episode}}",{{end}}
+      {{if .Episode.Season}}"seasonNumber": "{{.Episode.Season}}",{{end}}
+      "audio": {
+        "@type": "AudioObject",
+        "contentUrl": "{{.Episode.Enclosure.URL}}"{{if .Episode.Duration}},
+        "duration": "{{.Episode.Duration}}"{{end}}
+      },
+      "partOfSeries": {
+        "@type": "PodcastSeries",
+        "name": "L'EstamiTech",
+        "url": "https://estamitech.fr"
+      },
+      "image": {
+        "@type": "ImageObject",
+        "url": "{{.Episode.Image.Href}}"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "{{if .Episode.Author}}{{.Episode.Author}}{{else}}Ludovic Borie{{end}}"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "L'EstamiTech",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://estamitech.fr/static/estamitech-icon.png"
+        }
+      },
+      "inLanguage": "fr-FR"{{if .Episode.Keywords}},
+      "keywords": "{{.Episode.Keywords}}"{{end}}
+    }
+    </script>
 </head>
 <body>
 <!-- Navbar -->
