@@ -2,16 +2,16 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{{.CleanDesc}}">
     <meta name="keywords" content="épisode, podcast, tech, nord, estaminet, ludovic borie, EstamiTech, l'EstamiTech, haut-de-france, french tech">
     <meta name="author" content="Ludovic Borie">
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
-    <meta name="theme-color" content="#5d1692">
-    
+    <meta name="theme-color" content="#0b0a14">
+
     <!-- Open Graph / Facebook -->
-    <meta property="og:title" content="{{.Episode.Title}} - L'EstamiTech">
+    <meta property="og:title" content="{{.Episode.Title}} — L'EstamiTech">
     <meta property="og:description" content="{{.CleanDesc}}">
     <meta property="og:image" content="https://estamitech.fr/og-image/{{.Episode.GUID}}">
     <meta property="og:image:width" content="1200">
@@ -21,22 +21,22 @@
     <meta property="og:type" content="article">
     <meta property="og:locale" content="fr_FR">
     <meta property="og:site_name" content="L'EstamiTech">
-    
+
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{.Episode.Title}} - L'EstamiTech">
+    <meta name="twitter:title" content="{{.Episode.Title}} — L'EstamiTech">
     <meta name="twitter:description" content="{{.CleanDesc}}">
     <meta name="twitter:image" content="https://estamitech.fr/og-image/{{.Episode.GUID}}">
-    
+
     <link rel="canonical" href="https://estamitech.fr/episode/{{.Episode.GUID}}">
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link rel="stylesheet" href="/style.css">
-    <title>{{.Episode.Title}} - L'EstamiTech</title>
-    
+    <title>{{.Episode.Title}} — L'EstamiTech</title>
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -80,91 +80,86 @@
     </script>
 </head>
 <body>
-<!-- Navbar -->
-<nav class="navbar">
-    <div class="navbar-logo">
-        <a href="/">
-            <img src="/static/estamitech-icon.png" alt="Logo EstamiTech">
-            <h1>L'<span style="color: var(--text-light);">ESTAMI</span><span style="color: var(--accent-tech);">TECH</span></h1>
-        </a>
-    </div>
-    <div class="navbar-links">
+
+<!-- Nav -->
+<nav class="nav">
+    <a href="/" class="nav__brand">
+        <img src="/static/estamitech-icon.png" alt="L'EstamiTech" class="nav__icon">
+        <span class="nav__wordmark">L'ESTAMI<span class="wm-tech">TECH</span></span>
+    </a>
+    <div class="nav__links">
         <a href="/">Accueil</a>
         <a href="/#about">À propos</a>
         <a href="/#episodes">Épisodes</a>
     </div>
-    <div class="menu-toggle">
+    <div class="nav__toggle" aria-label="Menu">
         <span></span>
         <span></span>
         <span></span>
     </div>
 </nav>
 
-<div class="episode-container">
+<!-- Episode Page -->
+<main class="ep-page">
     <a href="/#episodes" class="back-link">
         <i class="fas fa-arrow-left"></i>
         Retour aux épisodes
     </a>
-    
-    <div class="episode-header">
+
+    <header class="ep-page__header">
+        <span class="label">Épisode</span>
         <h1>{{.Episode.Title}}</h1>
-        <div class="episode-meta">
-            <span><i class="far fa-calendar-alt"></i> {{.FormattedDate}}</span>
+        <time>{{.FormattedDate}}</time>
+    </header>
+
+    <hr class="ep-page__rule">
+
+    <div class="ep-page__content">
+        <div class="ep-page__art">
+            <img src="{{.Episode.Image.Href}}" alt="{{.Episode.Title}}">
         </div>
-    </div>
-    
-    <div class="episode-content">
-        <div class="episode-image-container">
-            <img src="{{.Episode.Image.Href}}" alt="Miniature de l'épisode - {{.Episode.Title}}">
-        </div>
-        
-        <div class="episode-info">
-            <div class="audio-player">
-                <h3>Écouter l'épisode</h3>
-                {{if .Episode.Enclosure.URL}}
-                <audio controls>
-                    <source src="{{.Episode.Enclosure.URL}}" type="audio/mpeg">
-                    Votre navigateur ne supporte pas l'élément audio.
-                </audio>
-                {{else}}
-                <audio controls>
-                    <source src="{{.Episode.Link}}" type="audio/mpeg">
-                    Votre navigateur ne supporte pas l'élément audio.
-                </audio>
-                {{end}}
-                
-                <div class="podcast-links">
-                    <a href="https://podcasts.apple.com/us/podcast/lestamitech/id1752308502?itsct=podcast_box_badge&amp;itscg=30200&amp;ls=1">
-                        <img src="https://tools.applemediaservices.com/api/badges/listen-on-apple-podcasts/badge/fr-fr?size=250x83&amp;releaseDate=1725395040" alt="Listen on Apple Podcasts" style="height: 40px;">
-                    </a>
-                    <a href="https://open.spotify.com/show/1308v72DAlbYP13TA5au1I">
-                        <img src="/static/spotify-podcast-badge-blk-grn-165x40.png" alt="Listen on Spotify" style="height: 40px;">
-                    </a>
-                    <button class="rss-btn" onclick="copyRSSLink()" title="Copier le lien RSS">
-                        <i class="fas fa-rss"></i>
-                        <span>RSS</span>
-                    </button>
-                </div>
+
+        <div class="ep-page__player">
+            <h3>Écouter l'épisode</h3>
+            {{if .Episode.Enclosure.URL}}
+            <audio controls preload="metadata">
+                <source src="{{.Episode.Enclosure.URL}}" type="audio/mpeg">
+                Votre navigateur ne supporte pas l'élément audio.
+            </audio>
+            {{else}}
+            <audio controls preload="metadata">
+                <source src="{{.Episode.Link}}" type="audio/mpeg">
+                Votre navigateur ne supporte pas l'élément audio.
+            </audio>
+            {{end}}
+
+            <div class="platforms">
+                <a href="https://podcasts.apple.com/us/podcast/lestamitech/id1752308502?itsct=podcast_box_badge&amp;itscg=30200&amp;ls=1">
+                    <img src="https://tools.applemediaservices.com/api/badges/listen-on-apple-podcasts/badge/fr-fr?size=250x83&amp;releaseDate=1725395040" alt="Écouter sur Apple Podcasts">
+                </a>
+                <a href="https://open.spotify.com/show/1308v72DAlbYP13TA5au1I">
+                    <img src="/static/spotify-podcast-badge-blk-grn-165x40.png" alt="Écouter sur Spotify">
+                </a>
+                <button class="rss-btn" onclick="copyRSSLink()" title="Copier le lien RSS">
+                    <i class="fas fa-rss"></i>
+                    <span>RSS</span>
+                </button>
             </div>
         </div>
     </div>
-    
-    <div class="episode-description">
+
+    <div class="ep-page__desc">
         <h3>Description</h3>
-        <div>
-            {{.HTMLDesc}}
-        </div>
+        <div>{{.HTMLDesc}}</div>
     </div>
-</div>
+</main>
 
 <!-- Footer -->
-<footer>
-    <div class="footer-content">
-        <div class="footer-logo">
-            <img src="/static/estamitech-icon.png" alt="Logo EstamiTech">
-        </div>
-        <p>L'<span style="color: var(--text-light);">ESTAMI</span><span style="color: var(--accent-tech);">TECH</span> - La Tech du Nord</p>
-        <div class="footer-links">
+<footer class="footer">
+    <div class="container">
+        <img src="/static/estamitech-icon.png" alt="L'EstamiTech" class="footer__icon">
+        <p class="footer__name">L'ESTAMI<span class="wm-tech">TECH</span> — La Tech du Nord</p>
+        <div class="footer__links">
             <a href="https://www.linkedin.com/in/ludovicborie/"><i class="fab fa-linkedin"></i> LinkedIn</a>
             <a href="https://piaille.fr/@bodul"><i class="fab fa-mastodon"></i> Mastodon</a>
             <a href="https://twitter.com/ludovicborie"><i class="fab fa-twitter"></i> Twitter</a>
@@ -173,9 +168,7 @@
             <a href="https://www.tiktok.com/@estamitech"><i class="fab fa-tiktok"></i> TikTok</a>
             <a href="https://bsky.app/profile/estamitech.bsky.social"><i class="fab fa-bluesky"></i> Bluesky</a>
         </div>
-        <div class="copyright">
-            &copy; <span id="current-year"></span> L'EstamiTech - Tous droits réservés - Logo réalisé par Lucille FOLENS HENNART
-        </div>
+        <p class="footer__copy">&copy; <span id="current-year"></span> L'EstamiTech — Tous droits réservés — Logo réalisé par Lucille FOLENS HENNART</p>
     </div>
 </footer>
 

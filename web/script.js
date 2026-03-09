@@ -1,131 +1,135 @@
-// Toggle mobile menu
-const menuToggle = document.querySelector('.menu-toggle');
-const navbarLinks = document.querySelector('.navbar-links');
+// ============================================
+// L'ESTAMITECH — Script
+// ============================================
 
-menuToggle.addEventListener('click', () => {
-    menuToggle.classList.toggle('active');
-    navbarLinks.classList.toggle('active');
-});
+// --- Mobile menu toggle ---
+const navToggle = document.querySelector('.nav__toggle');
+const navLinks = document.querySelector('.nav__links');
 
-// Close the menu when clicking on a link (for index page)
-document.querySelectorAll('.navbar-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        menuToggle.classList.remove('active');
-        navbarLinks.classList.remove('active');
+if (navToggle && navLinks) {
+    navToggle.addEventListener('click', () => {
+        navToggle.classList.toggle('active');
+        navLinks.classList.toggle('active');
     });
-});
 
-// Set current year in footer
-const currentYearElement = document.getElementById('current-year');
-if (currentYearElement) {
-    currentYearElement.textContent = new Date().getFullYear();
+    // Close menu on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            navToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
+    });
 }
 
-// Back to Top button functionality (for index page)
-const backToTopButton = document.getElementById('back-to-top');
-if (backToTopButton) {
+// --- Navbar scroll effect ---
+const nav = document.querySelector('.nav');
+if (nav) {
     window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-            backToTopButton.classList.add('visible');
-        } else {
-            backToTopButton.classList.remove('visible');
-        }
-    });
+        nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+}
 
-    backToTopButton.addEventListener('click', (e) => {
+// --- Back to top ---
+const backToTop = document.getElementById('back-to-top');
+if (backToTop) {
+    window.addEventListener('scroll', () => {
+        backToTop.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+
+    backToTop.addEventListener('click', (e) => {
         e.preventDefault();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 }
 
-// Smooth scrolling for anchor links (for index page)
+// --- Smooth anchor scrolling ---
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
-        if (this.getAttribute('href') !== '#') {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+
+        const target = document.querySelector(href);
+        if (target) {
             e.preventDefault();
-
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-
-            if (targetElement) {
-                const navbarHeight = document.querySelector('.navbar').offsetHeight;
-                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
-
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
+            const navHeight = document.querySelector('.nav')?.offsetHeight || 0;
+            const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
+            window.scrollTo({ top, behavior: 'smooth' });
         }
     });
 });
 
-// Copy RSS link to clipboard
+// --- Scroll reveal (IntersectionObserver) ---
+const revealElements = document.querySelectorAll('.reveal');
+if (revealElements.length > 0) {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    revealElements.forEach(el => observer.observe(el));
+}
+
+// --- Set current year ---
+const yearEl = document.getElementById('current-year');
+if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+}
+
+// --- RSS copy ---
 function copyRSSLink() {
     const rssLink = 'https://feeds.zencastr.com/f/bOMlUWx6.rss';
-    
+
     if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(rssLink).then(() => {
-            showToast('Lien RSS copié dans le presse-papier!');
+            showToast('Lien RSS copié dans le presse-papier !');
         }).catch(() => {
-            fallbackCopyTextToClipboard(rssLink);
+            fallbackCopy(rssLink);
         });
     } else {
-        fallbackCopyTextToClipboard(rssLink);
+        fallbackCopy(rssLink);
     }
 }
 
-function fallbackCopyTextToClipboard(text) {
-    const textArea = document.createElement("textarea");
-    textArea.value = text;
-    textArea.style.position = "fixed";
-    textArea.style.top = 0;
-    textArea.style.left = 0;
-    textArea.style.width = "2em";
-    textArea.style.height = "2em";
-    textArea.style.padding = 0;
-    textArea.style.border = "none";
-    textArea.style.outline = "none";
-    textArea.style.boxShadow = "none";
-    textArea.style.background = "transparent";
-    
-    document.body.appendChild(textArea);
-    textArea.focus();
-    textArea.select();
-    
+function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    Object.assign(ta.style, {
+        position: 'fixed', top: 0, left: 0,
+        width: '1px', height: '1px', opacity: 0,
+    });
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+
     try {
-        const successful = document.execCommand('copy');
-        if (successful) {
-            showToast('Lien RSS copié dans le presse-papier!');
-        } else {
-            showToast('Impossible de copier le lien RSS');
-        }
-    } catch (err) {
+        document.execCommand('copy')
+            ? showToast('Lien RSS copié dans le presse-papier !')
+            : showToast('Impossible de copier le lien RSS');
+    } catch {
         showToast('Impossible de copier le lien RSS');
     }
-    
-    document.body.removeChild(textArea);
+
+    document.body.removeChild(ta);
 }
 
 function showToast(message) {
-    const existingToast = document.querySelector('.toast');
-    if (existingToast) {
-        existingToast.remove();
-    }
-    
+    document.querySelector('.toast')?.remove();
+
     const toast = document.createElement('div');
     toast.className = 'toast';
     toast.textContent = message;
     document.body.appendChild(toast);
-    
-    setTimeout(() => {
-        toast.classList.add('show');
-    }, 10);
-    
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => toast.classList.add('show'));
+    });
+
     setTimeout(() => {
         toast.classList.remove('show');
-        setTimeout(() => {
-            toast.remove();
-        }, 300);
+        setTimeout(() => toast.remove(), 350);
     }, 3000);
 }

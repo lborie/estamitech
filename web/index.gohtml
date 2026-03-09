@@ -2,13 +2,13 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="L'EstamiTech est un podcast par Ludovic Borie. Chaque épisode met en avant un projet, une initiative dont nous pouvons discuter tech dans la bonne humeur et sans langue de bois.">
     <meta name="keywords" content="podcast, tech, nord, estaminet, ludovic borie, estamitech, l'estamitech, haut-de-france, french tech">
     <meta name="author" content="Ludovic Borie">
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
-    <meta name="theme-color" content="#5d1692">
+    <meta name="theme-color" content="#0b0a14">
     <meta property="og:title" content="L'EstamiTech">
     <meta property="og:description" content="L'EstamiTech est un podcast par Ludovic Borie. Chaque épisode met en avant un projet, une initiative dont nous pouvons discuter tech dans la bonne humeur et sans langue de bois.">
     <meta property="og:image" content="/static/LogoEstamitech.jpg">
@@ -20,11 +20,11 @@
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link rel="stylesheet" href="/style.css">
-    <title>L'EstamiTech - La Tech du Nord</title>
-    
+    <title>L'EstamiTech — La Tech du Nord</title>
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -52,139 +52,146 @@
     </script>
 </head>
 <body>
-<!-- Navbar -->
-<nav class="navbar">
-    <div class="navbar-logo">
-        <a href="/">
-            <img src="/static/estamitech-icon.png" alt="Logo EstamiTech">
-            <h1>L'<span style="color: var(--text-light);">ESTAMI</span><span style="color: var(--accent-tech);">TECH</span></h1>
-        </a>
-    </div>
-    <div class="navbar-links">
+
+<!-- Nav -->
+<nav class="nav">
+    <a href="/" class="nav__brand">
+        <img src="/static/estamitech-icon.png" alt="L'EstamiTech" class="nav__icon">
+        <span class="nav__wordmark">L'ESTAMI<span class="wm-tech">TECH</span></span>
+    </a>
+    <div class="nav__links">
         <a href="#about">À propos</a>
         <a href="#episodes">Épisodes</a>
     </div>
-    <div class="menu-toggle">
+    <div class="nav__toggle" aria-label="Menu">
         <span></span>
         <span></span>
         <span></span>
     </div>
 </nav>
 
-<!-- Hero Section -->
+<!-- Hero -->
 <section class="hero">
-    <div class="hero-content">
-        <img src="/static/LogoEstamitech.jpg" alt="Logo EstamiTech">
-        <h1>L'<span style="color: var(--text-light);">ESTAMI</span><span style="color: var(--accent-tech);">TECH</span></h1>
-        <h2>La Tech du Nord</h2>
+    <!-- Sparkles — matching the 3 stars above the cauldron in the logo -->
+    <div class="sparkle sparkle--1"></div>
+    <div class="sparkle sparkle--2"></div>
+    <div class="sparkle sparkle--3"></div>
+    <div class="sparkle sparkle--4"></div>
+    <div class="sparkle sparkle--5"></div>
+
+    <div class="hero__inner">
+        <div class="hero__logo">
+            <img src="/static/LogoEstamitech.jpg" alt="Logo L'EstamiTech — Cauldron with sparkles">
+        </div>
+        <h1 class="hero__title">L'ESTAMI<span class="wm-tech">TECH</span></h1>
+        <p class="hero__tagline">La Tech du Nord</p>
+        <hr class="hero__rule">
+        <p class="hero__credit">Podcast par Ludovic Borie</p>
+    </div>
+
+    <div class="hero__scroll">
+        <span>Découvrir</span>
+        <div class="hero__scroll-line"></div>
     </div>
 </section>
 
-<!-- Main Content -->
-<section class="main-content" id="about">
-    <h2 class="section-title">À propos</h2>
-    <div class="grid-container">
-        <div class="card description-card">
-            <div class="card-content">
+<!-- About -->
+<section class="about container" id="about">
+    <div class="section-hdr reveal">
+        <span class="label">À propos</span>
+    </div>
+
+    <div class="about__grid">
+        <div class="about__card reveal reveal-delay-1">
+            <div class="about__text">
                 <h3>Le podcast qui met la tech du Nord à l'honneur.</h3>
                 <p>L'EstamiTech est un podcast par Ludovic Borie.</p>
                 <p>Chaque épisode met en avant un projet, une initiative dont nous pouvons discuter dans la bonne humeur et sans langue de bois.</p>
                 <p>Si vous souhaitez participer à l'émission, n'hésitez pas à me contacter sur l'un des réseaux sociaux ci-dessous.</p>
+            </div>
 
-                <div class="social-links">
-                <a href="https://www.linkedin.com/in/ludovicborie/" class="social-btn">
-                <i class="fab fa-linkedin"></i> LinkedIn
-                </a>
-                <a href="https://piaille.fr/@bodul" class="social-btn">
-                <i class="fab fa-mastodon"></i> Mastodon
-                </a>
-                <a href="https://twitter.com/ludovicborie" class="social-btn">
-                <i class="fab fa-twitter"></i> Twitter
-                </a>
-                    <a href="https://www.instagram.com/estamitech/" class="social-btn">
-                            <i class="fab fa-instagram"></i> Instagram
-                        </a>
-                        <a href="https://www.youtube.com/@EstamiTech" class="social-btn">
-                            <i class="fab fa-youtube"></i> YouTube
-                        </a>
-                        <a href="https://www.tiktok.com/@estamitech" class="social-btn">
-                            <i class="fab fa-tiktok"></i> TikTok
-                        </a>
-                        <a href="https://bsky.app/profile/estamitech.bsky.social" class="social-btn">
-                            <i class="fab fa-bluesky"></i> Bluesky
-                        </a>
-                    </div>
+            <div class="socials">
+                <a href="https://www.linkedin.com/in/ludovicborie/"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="https://piaille.fr/@bodul"><i class="fab fa-mastodon"></i> Mastodon</a>
+                <a href="https://twitter.com/ludovicborie"><i class="fab fa-twitter"></i> Twitter</a>
+                <a href="https://www.instagram.com/estamitech/"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="https://www.youtube.com/@EstamiTech"><i class="fab fa-youtube"></i> YouTube</a>
+                <a href="https://www.tiktok.com/@estamitech"><i class="fab fa-tiktok"></i> TikTok</a>
+                <a href="https://bsky.app/profile/estamitech.bsky.social"><i class="fab fa-bluesky"></i> Bluesky</a>
+            </div>
 
-                <div class="podcast-links">
-                    <a href="https://podcasts.apple.com/us/podcast/lestamitech/id1752308502?itsct=podcast_box_badge&amp;itscg=30200&amp;ls=1">
-                        <img src="https://tools.applemediaservices.com/api/badges/listen-on-apple-podcasts/badge/fr-fr?size=250x83&amp;releaseDate=1725395040" alt="Listen on Apple Podcasts" style="height: 40px;">
-                    </a>
-                    <a href="https://open.spotify.com/show/1308v72DAlbYP13TA5au1I">
-                        <img src="/static/spotify-podcast-badge-blk-grn-165x40.png" alt="Listen on Spotify" style="height: 40px;">
-                    </a>
-                    <button class="rss-btn" onclick="copyRSSLink()" title="Copier le lien RSS">
-                        <i class="fas fa-rss"></i>
-                        <span>RSS</span>
-                    </button>
-                </div>
+            <div class="platforms">
+                <a href="https://podcasts.apple.com/us/podcast/lestamitech/id1752308502?itsct=podcast_box_badge&amp;itscg=30200&amp;ls=1">
+                    <img src="https://tools.applemediaservices.com/api/badges/listen-on-apple-podcasts/badge/fr-fr?size=250x83&amp;releaseDate=1725395040" alt="Écouter sur Apple Podcasts">
+                </a>
+                <a href="https://open.spotify.com/show/1308v72DAlbYP13TA5au1I">
+                    <img src="/static/spotify-podcast-badge-blk-grn-165x40.png" alt="Écouter sur Spotify">
+                </a>
+                <button class="rss-btn" onclick="copyRSSLink()" title="Copier le lien RSS">
+                    <i class="fas fa-rss"></i>
+                    <span>RSS</span>
+                </button>
             </div>
         </div>
 
-        <div class="card" id="recommendations">
-            <div class="card-content">
-                <div class="map-container">
-                    <h3>Les invités vous recommandent :</h3>
-                    <div class="map-wrapper">
-                        <iframe allowfullscreen allow="geolocation" src="//framacarte.org/fr/map/estamitech_196450?scaleControl=false&miniMap=false&scrollWheelZoom=false&zoomControl=true&editMode=disabled&moreControl=true&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=true&onLoadPanel=none&captionBar=false&captionMenus=true"></iframe>
-                    </div>
-                    <div class="map-link">
-                        <a href="//framacarte.org/fr/map/estamitech_196450?scaleControl=false&miniMap=false&scrollWheelZoom=true&zoomControl=true&editMode=disabled&moreControl=true&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=true&onLoadPanel=none&captionBar=false&captionMenus=true">
-                            <i class="fas fa-external-link-alt"></i> Voir en plein écran
-                        </a>
-                    </div>
-                </div>
+        <div class="map-card reveal reveal-delay-2" id="recommendations">
+            <h3>Les invités vous recommandent</h3>
+            <div class="map-wrap">
+                <iframe allowfullscreen allow="geolocation" src="//framacarte.org/fr/map/estamitech_196450?scaleControl=false&miniMap=false&scrollWheelZoom=false&zoomControl=true&editMode=disabled&moreControl=true&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=true&onLoadPanel=none&captionBar=false&captionMenus=true"></iframe>
+            </div>
+            <div class="map-link">
+                <a href="//framacarte.org/fr/map/estamitech_196450?scaleControl=false&miniMap=false&scrollWheelZoom=true&zoomControl=true&editMode=disabled&moreControl=true&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=true&onLoadPanel=none&captionBar=false&captionMenus=true">
+                    <i class="fas fa-external-link-alt"></i> Voir en plein écran
+                </a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Episodes Section -->
-<section class="episodes-section" id="episodes">
-    <h2 class="section-title">Épisodes</h2>
-    <div class="episodes-container">
-        {{range .Episodes}}
-        <div class="episode-card">
-            <div class="episode-image">
-                <a href="/episode/{{.GUID}}"><img src="{{.Image.Href}}" alt="Miniature de l'épisode - {{.Title}}"></a>
-            </div>
-            <div class="episode-details">
-                <div class="episode-content-top">
-                    <h3 class="episode-title"><a href="/episode/{{.GUID}}" style="text-decoration: none; color: inherit;">{{.Title}}</a></h3>
-                    <div class="episode-meta">
-                        <span><i class="far fa-calendar-alt"></i> {{.FormattedDate}}</span>
-                    </div>
-                    <div class="episode-description">{{.CleanDesc}}</div>
-                </div>
-                <div class="episode-actions">
-                    <a href="/episode/{{.GUID}}" class="see-more-btn">
-                        <i class="fas fa-eye"></i>
-                        Voir plus
-                    </a>
-                </div>
-            </div>
-        </div>
-        {{end}}
+<!-- Episodes -->
+<section class="episodes container" id="episodes">
+    <div class="section-hdr reveal">
+        <span class="label">Épisodes</span>
     </div>
+
+    {{range $i, $ep := .Episodes}}
+    {{if eq $i 0}}
+    <article class="ep-featured reveal">
+        <div class="ep-featured__img">
+            <a href="/episode/{{$ep.GUID}}"><img src="{{$ep.Image.Href}}" alt="{{$ep.Title}}"></a>
+        </div>
+        <div class="ep-featured__body">
+            <span class="label">Dernier épisode</span>
+            <h3><a href="/episode/{{$ep.GUID}}">{{$ep.Title}}</a></h3>
+            <time>{{$ep.FormattedDate}}</time>
+            <p>{{$ep.CleanDesc}}</p>
+            <a href="/episode/{{$ep.GUID}}" class="ep-link">Écouter l'épisode <span>→</span></a>
+        </div>
+    </article>
+    {{else}}
+    {{if eq $i 1}}<div class="ep-grid">{{end}}
+    <article class="ep-card reveal">
+        <a href="/episode/{{$ep.GUID}}" class="ep-card__img">
+            <img src="{{$ep.Image.Href}}" alt="{{$ep.Title}}">
+        </a>
+        <div class="ep-card__body">
+            <time>{{$ep.FormattedDate}}</time>
+            <h3><a href="/episode/{{$ep.GUID}}">{{$ep.Title}}</a></h3>
+            <p>{{$ep.CleanDesc}}</p>
+            <a href="/episode/{{$ep.GUID}}" class="ep-link">Écouter <span>→</span></a>
+        </div>
+    </article>
+    {{end}}
+    {{end}}
+    {{if gt (len .Episodes) 1}}</div>{{end}}
 </section>
 
 <!-- Footer -->
-<footer>
-    <div class="footer-content">
-        <div class="footer-logo">
-            <img src="/static/estamitech-icon.png" alt="Logo EstamiTech">
-        </div>
-        <p>L'<span style="color: var(--text-light);">ESTAMI</span><span style="color: var(--accent-tech);">TECH</span> - La Tech du Nord</p>
-        <div class="footer-links">
+<footer class="footer">
+    <div class="container">
+        <img src="/static/estamitech-icon.png" alt="L'EstamiTech" class="footer__icon">
+        <p class="footer__name">L'ESTAMI<span class="wm-tech">TECH</span> — La Tech du Nord</p>
+        <div class="footer__links">
             <a href="https://www.linkedin.com/in/ludovicborie/"><i class="fab fa-linkedin"></i> LinkedIn</a>
             <a href="https://piaille.fr/@bodul"><i class="fab fa-mastodon"></i> Mastodon</a>
             <a href="https://twitter.com/ludovicborie"><i class="fab fa-twitter"></i> Twitter</a>
@@ -193,14 +200,12 @@
             <a href="https://www.tiktok.com/@estamitech"><i class="fab fa-tiktok"></i> TikTok</a>
             <a href="https://bsky.app/profile/estamitech.bsky.social"><i class="fab fa-bluesky"></i> Bluesky</a>
         </div>
-        <div class="copyright">
-            &copy; {{.CurrentYear}} L'EstamiTech - Tous droits réservés - Logo réalisé par Lucille FOLENS HENNART
-        </div>
+        <p class="footer__copy">&copy; {{.CurrentYear}} L'EstamiTech — Tous droits réservés — Logo réalisé par Lucille FOLENS HENNART</p>
     </div>
 </footer>
 
-<!-- Back to Top Button -->
-<a href="#" id="back-to-top" class="back-to-top">
+<!-- Back to top -->
+<a href="#" id="back-to-top" class="back-to-top" aria-label="Retour en haut">
     <i class="fas fa-arrow-up"></i>
 </a>
 
