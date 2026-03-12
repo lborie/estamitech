@@ -13,9 +13,9 @@
   --bg-nav: rgba(11, 10, 20, 0.92);
 
   /* Logo palette */
-  --magenta: #e436b3;
-  --magenta-hover: #f24fc6;
-  --magenta-glow: rgba(228, 54, 179, 0.14);
+  --magenta: #C31DBD;
+  --magenta-hover: #d93dd4;
+  --magenta-glow: rgba(195, 29, 189, 0.14);
   --purple: #5d1692;
   --blue: #1e88e5;
   --gradient: linear-gradient(135deg, #5d1692, #1e88e5);
@@ -27,13 +27,30 @@
 
   /* Utility */
   --border: rgba(237, 233, 227, 0.06);
-  --border-accent: rgba(228, 54, 179, 0.3);
+  --border-accent: rgba(195, 29, 189, 0.3);
   --shadow: 0 4px 32px rgba(0, 0, 0, 0.35);
   --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.25);
   --radius: 10px;
   --radius-sm: 6px;
   --rss: #f97316;
   --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- Custom Fonts --- */
+@font-face {
+  font-family: 'MADE TOMMY';
+  src: url('/static/fonts/MADE TOMMY Medium_PERSONAL USE.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'MADE TOMMY';
+  src: url('/static/fonts/MADE TOMMY Thin_PERSONAL USE.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
 }
 
 /* --- Reset & Base --- */
@@ -46,7 +63,8 @@ html {
 }
 
 body {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'MADE TOMMY', sans-serif;
+  font-weight: 100;
   background: var(--bg);
   color: var(--text);
   line-height: 1.7;
@@ -61,27 +79,30 @@ img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; text-decoration: none; }
 button { font-family: inherit; cursor: pointer; }
 
-/* --- Grain Overlay --- */
+/* --- Grain Overlay (applied to background, not as overlay — Safari compat) --- */
 body::after {
   content: '';
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   opacity: 0.025;
   pointer-events: none;
-  z-index: 9999;
+  z-index: -1;
 }
 
 /* --- Typography --- */
 h1, h2, h3, h4 {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-weight: 600;
+  font-family: 'MADE TOMMY', sans-serif;
+  font-weight: 500;
   line-height: 1.15;
   color: var(--text);
 }
 
 .label {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'MADE TOMMY', sans-serif;
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.14em;
@@ -120,13 +141,13 @@ h1, h2, h3, h4 {
   50% { opacity: 0.7; }
 }
 
-/* Scroll reveal */
-.reveal {
+/* Scroll reveal — JS adds .reveal-ready, so cards are visible if JS fails */
+.reveal-ready .reveal {
   opacity: 0;
   transform: translateY(28px);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
-.reveal.revealed {
+.reveal-ready .reveal.revealed {
   opacity: 1;
   transform: translateY(0);
 }
@@ -184,7 +205,7 @@ h1, h2, h3, h4 {
 }
 
 .nav__wordmark {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'MADE TOMMY', sans-serif;
   font-size: 1.35rem;
   font-weight: 700;
   letter-spacing: 0.01em;
@@ -259,7 +280,7 @@ h1, h2, h3, h4 {
   background:
     radial-gradient(ellipse 60% 50% at 30% 25%, rgba(93, 22, 146, 0.28) 0%, transparent 70%),
     radial-gradient(ellipse 50% 60% at 75% 75%, rgba(30, 136, 229, 0.14) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(228, 54, 179, 0.06) 0%, transparent 60%);
+    radial-gradient(ellipse 40% 40% at 50% 50%, rgba(195, 29, 189, 0.06) 0%, transparent 60%);
   z-index: 0;
 }
 
@@ -278,7 +299,7 @@ h1, h2, h3, h4 {
 .hero__logo img {
   width: clamp(180px, 26vw, 260px);
   border-radius: 16px;
-  box-shadow: 0 8px 48px rgba(228, 54, 179, 0.15), 0 2px 16px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 48px rgba(195, 29, 189, 0.15), 0 2px 16px rgba(0, 0, 0, 0.4);
   animation: fade-up 0.8s ease both;
 }
 
@@ -305,7 +326,7 @@ h1, h2, h3, h4 {
 .hero__title .wm-tech { color: var(--magenta); }
 
 .hero__tagline {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'MADE TOMMY', sans-serif;
   font-size: clamp(1.1rem, 2.2vw, 1.5rem);
   font-weight: 400;
   font-style: italic;
@@ -545,7 +566,7 @@ h1, h2, h3, h4 {
 }
 .ep-featured:hover {
   border-color: var(--border-accent);
-  box-shadow: 0 4px 40px rgba(228, 54, 179, 0.07);
+  box-shadow: 0 4px 40px rgba(195, 29, 189, 0.07);
 }
 
 .ep-featured__img a { display: block; }
@@ -618,7 +639,7 @@ h1, h2, h3, h4 {
 .ep-card:hover {
   transform: translateY(-4px);
   border-color: var(--border-accent);
-  box-shadow: 0 8px 32px rgba(228, 54, 179, 0.06);
+  box-shadow: 0 8px 32px rgba(195, 29, 189, 0.06);
 }
 
 .ep-card__img { display: block; overflow: hidden; }
@@ -790,7 +811,7 @@ h1, h2, h3, h4 {
 }
 
 .footer__name {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'MADE TOMMY', sans-serif;
   font-size: 1.15rem;
   font-weight: 600;
   margin-bottom: 24px;

@@ -1,9 +1,9 @@
 runtime: go123
 
 handlers:
-  - url: /static/(.*\.(png|jpg|ico))$
+  - url: /static/(.*\.(png|jpg|ico|otf|woff|woff2))$
     static_files: static/\1
-    upload: static/.*\.(png|jpg|ico)$
+    upload: static/.*\.(png|jpg|ico|otf|woff|woff2)$
     secure: always
 
   - url: /(.*\.(css|js))$
