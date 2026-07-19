@@ -56,17 +56,18 @@
         <img src="/static/estamitech-icon.png" alt="L'EstamiTech" class="nav__icon">
         <span class="nav__wordmark">L'ESTAMI<span class="wm-tech">TECH</span></span>
     </a>
-    <div class="nav__links">
+    <div class="nav__links" id="nav-links">
         <a href="#about">À propos</a>
         <a href="#episodes">Épisodes</a>
     </div>
-    <div class="nav__toggle" aria-label="Menu">
+    <button type="button" class="nav__toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
         <span></span>
         <span></span>
         <span></span>
-    </div>
+    </button>
 </nav>
 
+<main>
 <!-- Hero -->
 <section class="hero">
     <!-- Sparkles — matching the 3 stars above the cauldron in the logo -->
@@ -95,7 +96,7 @@
 <!-- About -->
 <section class="about container" id="about">
     <div class="section-hdr reveal">
-        <span class="label">À propos</span>
+        <h2 class="label">À propos</h2>
     </div>
 
     <div class="about__grid">
@@ -108,13 +109,13 @@
             </div>
 
             <div class="socials">
-                <a href="https://www.linkedin.com/in/ludovicborie/"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                <a href="https://piaille.fr/@bodul"><i class="fab fa-mastodon"></i> Mastodon</a>
-                <a href="https://twitter.com/ludovicborie"><i class="fab fa-twitter"></i> Twitter</a>
-                <a href="https://www.instagram.com/estamitech/"><i class="fab fa-instagram"></i> Instagram</a>
-                <a href="https://www.youtube.com/@EstamiTech"><i class="fab fa-youtube"></i> YouTube</a>
-                <a href="https://www.tiktok.com/@estamitech"><i class="fab fa-tiktok"></i> TikTok</a>
-                <a href="https://bsky.app/profile/estamitech.bsky.social"><i class="fab fa-bluesky"></i> Bluesky</a>
+                <a href="https://www.linkedin.com/in/ludovicborie/"><i aria-hidden="true" class="fab fa-linkedin"></i> LinkedIn</a>
+                <a href="https://piaille.fr/@bodul"><i aria-hidden="true" class="fab fa-mastodon"></i> Mastodon</a>
+                <a href="https://twitter.com/ludovicborie"><i aria-hidden="true" class="fab fa-twitter"></i> Twitter</a>
+                <a href="https://www.instagram.com/estamitech/"><i aria-hidden="true" class="fab fa-instagram"></i> Instagram</a>
+                <a href="https://www.youtube.com/@EstamiTech"><i aria-hidden="true" class="fab fa-youtube"></i> YouTube</a>
+                <a href="https://www.tiktok.com/@estamitech"><i aria-hidden="true" class="fab fa-tiktok"></i> TikTok</a>
+                <a href="https://bsky.app/profile/estamitech.bsky.social"><i aria-hidden="true" class="fab fa-bluesky"></i> Bluesky</a>
             </div>
 
             <div class="platforms">
@@ -125,7 +126,7 @@
                     <img src="/static/spotify-podcast-badge-blk-grn-165x40.png" alt="Écouter sur Spotify">
                 </a>
                 <button class="rss-btn" onclick="copyRSSLink()" title="Copier le lien RSS">
-                    <i class="fas fa-rss"></i>
+                    <i aria-hidden="true" class="fas fa-rss"></i>
                     <span>RSS</span>
                 </button>
             </div>
@@ -134,11 +135,11 @@
         <div class="map-card reveal reveal-delay-2" id="recommendations">
             <h3>Les invités vous recommandent</h3>
             <div class="map-wrap">
-                <iframe allowfullscreen allow="geolocation" src="//framacarte.org/fr/map/estamitech_196450?scaleControl=false&miniMap=false&scrollWheelZoom=false&zoomControl=true&editMode=disabled&moreControl=true&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=true&onLoadPanel=none&captionBar=false&captionMenus=true"></iframe>
+                <iframe title="Carte des lieux recommandés par les invités du podcast" allowfullscreen allow="geolocation" src="//framacarte.org/fr/map/estamitech_196450?scaleControl=false&miniMap=false&scrollWheelZoom=false&zoomControl=true&editMode=disabled&moreControl=true&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=true&onLoadPanel=none&captionBar=false&captionMenus=true"></iframe>
             </div>
             <div class="map-link">
                 <a href="//framacarte.org/fr/map/estamitech_196450?scaleControl=false&miniMap=false&scrollWheelZoom=true&zoomControl=true&editMode=disabled&moreControl=true&searchControl=null&tilelayersControl=null&embedControl=null&datalayersControl=true&onLoadPanel=none&captionBar=false&captionMenus=true">
-                    <i class="fas fa-external-link-alt"></i> Voir en plein écran
+                    <i aria-hidden="true" class="fas fa-external-link-alt"></i> Voir en plein écran
                 </a>
             </div>
         </div>
@@ -148,7 +149,7 @@
 <!-- Episodes -->
 <section class="episodes container" id="episodes">
     <div class="section-hdr reveal">
-        <span class="label">Épisodes</span>
+        <h2 class="label">Épisodes</h2>
     </div>
 
     {{range $i, $ep := .Episodes}}
@@ -182,6 +183,7 @@
     {{end}}
     {{if gt (len .Episodes) 1}}</div>{{end}}
 </section>
+</main>
 
 <!-- Footer -->
 <footer class="footer">
@@ -189,13 +191,13 @@
         <img src="/static/estamitech-icon.png" alt="L'EstamiTech" class="footer__icon">
         <p class="footer__name">L'ESTAMI<span class="wm-tech">TECH</span> — La Tech du Nord</p>
         <div class="footer__links">
-            <a href="https://www.linkedin.com/in/ludovicborie/"><i class="fab fa-linkedin"></i> LinkedIn</a>
-            <a href="https://piaille.fr/@bodul"><i class="fab fa-mastodon"></i> Mastodon</a>
-            <a href="https://twitter.com/ludovicborie"><i class="fab fa-twitter"></i> Twitter</a>
-            <a href="https://www.instagram.com/estamitech/"><i class="fab fa-instagram"></i> Instagram</a>
-            <a href="https://www.youtube.com/@EstamiTech"><i class="fab fa-youtube"></i> YouTube</a>
-            <a href="https://www.tiktok.com/@estamitech"><i class="fab fa-tiktok"></i> TikTok</a>
-            <a href="https://bsky.app/profile/estamitech.bsky.social"><i class="fab fa-bluesky"></i> Bluesky</a>
+            <a href="https://www.linkedin.com/in/ludovicborie/"><i aria-hidden="true" class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="https://piaille.fr/@bodul"><i aria-hidden="true" class="fab fa-mastodon"></i> Mastodon</a>
+            <a href="https://twitter.com/ludovicborie"><i aria-hidden="true" class="fab fa-twitter"></i> Twitter</a>
+            <a href="https://www.instagram.com/estamitech/"><i aria-hidden="true" class="fab fa-instagram"></i> Instagram</a>
+            <a href="https://www.youtube.com/@EstamiTech"><i aria-hidden="true" class="fab fa-youtube"></i> YouTube</a>
+            <a href="https://www.tiktok.com/@estamitech"><i aria-hidden="true" class="fab fa-tiktok"></i> TikTok</a>
+            <a href="https://bsky.app/profile/estamitech.bsky.social"><i aria-hidden="true" class="fab fa-bluesky"></i> Bluesky</a>
         </div>
         <p class="footer__copy">&copy; {{.CurrentYear}} L'EstamiTech — Tous droits réservés — Logo réalisé par Lucille FOLENS HENNART</p>
     </div>
@@ -203,7 +205,7 @@
 
 <!-- Back to top -->
 <a href="#" id="back-to-top" class="back-to-top" aria-label="Retour en haut">
-    <i class="fas fa-arrow-up"></i>
+    <i aria-hidden="true" class="fas fa-arrow-up"></i>
 </a>
 
 <script src="/script.js"></script>

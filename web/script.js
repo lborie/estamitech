@@ -11,8 +11,9 @@
 
     if (navToggle && navLinks) {
         navToggle.addEventListener('click', function() {
-            navToggle.classList.toggle('active');
+            var open = navToggle.classList.toggle('active');
             navLinks.classList.toggle('active');
+            navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         });
 
         var links = navLinks.querySelectorAll('a');
@@ -20,6 +21,7 @@
             links[i].addEventListener('click', function() {
                 navToggle.classList.remove('active');
                 navLinks.classList.remove('active');
+                navToggle.setAttribute('aria-expanded', 'false');
             });
         }
     }
@@ -147,6 +149,7 @@ function showToast(message) {
 
     var toast = document.createElement('div');
     toast.className = 'toast';
+    toast.setAttribute('role', 'status'); // annonce le message aux lecteurs d'écran (aria-live implicite)
     toast.textContent = message;
     document.body.appendChild(toast);
 

@@ -84,22 +84,22 @@
         <img src="/static/estamitech-icon.png" alt="L'EstamiTech" class="nav__icon">
         <span class="nav__wordmark">L'ESTAMI<span class="wm-tech">TECH</span></span>
     </a>
-    <div class="nav__links">
+    <div class="nav__links" id="nav-links">
         <a href="/">Accueil</a>
         <a href="/#about">À propos</a>
         <a href="/#episodes">Épisodes</a>
     </div>
-    <div class="nav__toggle" aria-label="Menu">
+    <button type="button" class="nav__toggle" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
         <span></span>
         <span></span>
         <span></span>
-    </div>
+    </button>
 </nav>
 
 <!-- Episode Page -->
 <main class="ep-page">
     <a href="/#episodes" class="back-link">
-        <i class="fas fa-arrow-left"></i>
+        <i aria-hidden="true" class="fas fa-arrow-left"></i>
         Retour aux épisodes
     </a>
 
@@ -138,7 +138,7 @@
                     <img src="/static/spotify-podcast-badge-blk-grn-165x40.png" alt="Écouter sur Spotify">
                 </a>
                 <button class="rss-btn" onclick="copyRSSLink()" title="Copier le lien RSS">
-                    <i class="fas fa-rss"></i>
+                    <i aria-hidden="true" class="fas fa-rss"></i>
                     <span>RSS</span>
                 </button>
             </div>
@@ -157,13 +157,13 @@
         <img src="/static/estamitech-icon.png" alt="L'EstamiTech" class="footer__icon">
         <p class="footer__name">L'ESTAMI<span class="wm-tech">TECH</span> — La Tech du Nord</p>
         <div class="footer__links">
-            <a href="https://www.linkedin.com/in/ludovicborie/"><i class="fab fa-linkedin"></i> LinkedIn</a>
-            <a href="https://piaille.fr/@bodul"><i class="fab fa-mastodon"></i> Mastodon</a>
-            <a href="https://twitter.com/ludovicborie"><i class="fab fa-twitter"></i> Twitter</a>
-            <a href="https://www.instagram.com/estamitech/"><i class="fab fa-instagram"></i> Instagram</a>
-            <a href="https://www.youtube.com/@EstamiTech"><i class="fab fa-youtube"></i> YouTube</a>
-            <a href="https://www.tiktok.com/@estamitech"><i class="fab fa-tiktok"></i> TikTok</a>
-            <a href="https://bsky.app/profile/estamitech.bsky.social"><i class="fab fa-bluesky"></i> Bluesky</a>
+            <a href="https://www.linkedin.com/in/ludovicborie/"><i aria-hidden="true" class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="https://piaille.fr/@bodul"><i aria-hidden="true" class="fab fa-mastodon"></i> Mastodon</a>
+            <a href="https://twitter.com/ludovicborie"><i aria-hidden="true" class="fab fa-twitter"></i> Twitter</a>
+            <a href="https://www.instagram.com/estamitech/"><i aria-hidden="true" class="fab fa-instagram"></i> Instagram</a>
+            <a href="https://www.youtube.com/@EstamiTech"><i aria-hidden="true" class="fab fa-youtube"></i> YouTube</a>
+            <a href="https://www.tiktok.com/@estamitech"><i aria-hidden="true" class="fab fa-tiktok"></i> TikTok</a>
+            <a href="https://bsky.app/profile/estamitech.bsky.social"><i aria-hidden="true" class="fab fa-bluesky"></i> Bluesky</a>
         </div>
         <p class="footer__copy">&copy; <span id="current-year"></span> L'EstamiTech — Tous droits réservés — Logo réalisé par Lucille FOLENS HENNART</p>
     </div>

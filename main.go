@@ -135,12 +135,40 @@ func cleanDescription(desc string) string {
 	re := regexp.MustCompile(`<[^>]*>`)
 	clean := re.ReplaceAllString(desc, "")
 
-	// Tronquer à 160 caractères pour les meta tags
-	if len(clean) > 160 {
-		clean = clean[:157] + "..."
+	// Tronquer à 160 caractères — en runes (pas en octets) pour ne pas
+	// couper un caractère UTF-8 accentué en plein milieu (é, è, à…)
+	runes := []rune(clean)
+	if len(runes) > 160 {
+		clean = string(runes[:157]) + "..."
 	}
 
 	return strings.TrimSpace(clean)
+}
+
+// writeNotFound renvoie un vrai statut 404 (au lieu d'une redirection 303 vers
+// l'accueil qui créait un « soft-404 » néfaste pour le référencement).
+func writeNotFound(writer http.ResponseWriter) {
+	writer.Header().Set("Content-Type", "text/html; charset=utf-8")
+	writer.WriteHeader(http.StatusNotFound)
+	_, _ = writer.Write([]byte(`<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Épisode introuvable — L'EstamiTech</title>
+<link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<main class="ep-page" style="text-align:center">
+<span class="label">Erreur 404</span>
+<h1>Épisode introuvable</h1>
+<p style="color:var(--text-dim);margin:16px 0 32px">Cet épisode n'existe pas ou n'est plus disponible.</p>
+<a href="/" class="ep-link">Retour à l'accueil <span>&rarr;</span></a>
+</main>
+</body>
+</html>`))
 }
 
 func findEpisodeByID(episodes []Item, episodeID string) *Item {
@@ -300,7 +328,7 @@ func main() {
 		// Trouver l'épisode
 		episode := findEpisodeByID(episodes, episodeID)
 		if episode == nil {
-			http.Redirect(writer, request, "/", http.StatusSeeOther)
+			writeNotFound(writer)
 			return
 		}
 
