@@ -17,6 +17,7 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:type" content="image/png"/>
+    <meta property="og:image:alt" content="{{.Episode.Title}} — L'EstamiTech">
     <meta property="og:url" content="https://estamitech.fr/episode/{{.Episode.GUID}}">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="fr_FR">
@@ -27,8 +28,10 @@
     <meta name="twitter:title" content="{{.Episode.Title}} — L'EstamiTech">
     <meta name="twitter:description" content="{{.CleanDesc}}">
     <meta name="twitter:image" content="https://estamitech.fr/og-image/{{.Episode.GUID}}">
+    <meta name="twitter:image:alt" content="{{.Episode.Title}} — L'EstamiTech">
 
     <link rel="canonical" href="https://estamitech.fr/episode/{{.Episode.GUID}}">
+    <link rel="alternate" type="application/rss+xml" title="L'EstamiTech — Flux du podcast" href="https://feeds.zencastr.com/f/bOMlUWx6.rss">
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link rel="stylesheet" href="/style.css">
@@ -81,7 +84,7 @@
 <!-- Nav -->
 <nav class="nav">
     <a href="/" class="nav__brand">
-        <img src="/static/estamitech-icon.png" alt="L'EstamiTech" class="nav__icon">
+        <img src="/static/estamitech-icon.png" alt="L'EstamiTech" class="nav__icon" width="500" height="500">
         <span class="nav__wordmark">L'ESTAMI<span class="wm-tech">TECH</span></span>
     </a>
     <div class="nav__links" id="nav-links">
@@ -113,7 +116,7 @@
 
     <div class="ep-page__content">
         <div class="ep-page__art">
-            <img src="{{.Episode.Image.Href}}" alt="{{.Episode.Title}}">
+            <img src="{{.Episode.Image.Href}}" alt="{{.Episode.Title}}" loading="lazy" decoding="async">
         </div>
 
         <div class="ep-page__player">
@@ -154,7 +157,7 @@
 <!-- Footer -->
 <footer class="footer">
     <div class="container">
-        <img src="/static/estamitech-icon.png" alt="L'EstamiTech" class="footer__icon">
+        <img src="/static/estamitech-icon.png" alt="L'EstamiTech" class="footer__icon" width="500" height="500" loading="lazy">
         <p class="footer__name">L'ESTAMI<span class="wm-tech">TECH</span> — La Tech du Nord</p>
         <div class="footer__links">
             <a href="https://www.linkedin.com/in/ludovicborie/"><i aria-hidden="true" class="fab fa-linkedin"></i> LinkedIn</a>

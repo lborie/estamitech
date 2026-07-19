@@ -1,0 +1,7 @@
+# Binaire compilé (même nom que le module / le dossier)
+/estamitech
+
+# Artefacts de build Go
+*.exe
+*.test
+*.out

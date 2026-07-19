@@ -190,6 +190,56 @@ func writeNotFound(writer http.ResponseWriter) {
 		"Cet épisode n'existe pas ou n'est plus disponible.")
 }
 
+var moisFR = [...]string{"janvier", "février", "mars", "avril", "mai", "juin",
+	"juillet", "août", "septembre", "octobre", "novembre", "décembre"}
+
+// formatDateFR formate une date en français long, ex. « 26 avril 2026 »
+// (time.Format ne gère pas de locale et produisait des mois en anglais).
+func formatDateFR(t time.Time) string {
+	return fmt.Sprintf("%d %s %d", t.Day(), moisFR[t.Month()-1], t.Year())
+}
+
+// renderOGImage compose l'image source (carrée) centrée sur le fond 1200x630 de
+// la marque, puis l'encode en PNG dans la réponse. Base commune aux images
+// Open Graph de la page d'accueil et des épisodes.
+func renderOGImage(writer http.ResponseWriter, srcImg image.Image) {
+	dc := gg.NewContext(1200, 630)
+
+	bgImg, err := gg.LoadImage("static/estamitech-bckg.png")
+	if err != nil {
+		log.Printf("Error loading background image: %v", err)
+		dc.SetColor(color.RGBA{93, 22, 146, 255}) // #5d1692
+		dc.Clear()
+	} else {
+		dc.DrawImageAnchored(bgImg, 600, 315, 0.5, 0.5)
+	}
+
+	imgSize := 500
+	x := (1200 - imgSize) / 2
+	y := (630 - imgSize) / 2
+
+	bounds := srcImg.Bounds()
+	srcWidth := bounds.Dx()
+	srcHeight := bounds.Dy()
+	scale := float64(imgSize) / float64(srcWidth)
+	if srcHeight > srcWidth {
+		scale = float64(imgSize) / float64(srcHeight)
+	}
+
+	dc.Push()
+	dc.Translate(float64(x+imgSize/2), float64(y+imgSize/2))
+	dc.Scale(scale, scale)
+	dc.DrawImageAnchored(srcImg, 0, 0, 0.5, 0.5)
+	dc.Pop()
+
+	writer.Header().Set("Content-Type", "image/png")
+	writer.Header().Set("Cache-Control", "public, max-age=86400")
+	if err := dc.EncodePNG(writer); err != nil {
+		log.Printf("Error encoding PNG: %v", err)
+		http.Error(writer, "Internal Server Error", http.StatusInternalServerError)
+	}
+}
+
 func findEpisodeByID(episodes []Item, episodeID string) *Item {
 	for _, episode := range episodes {
 		if episode.GUID == episodeID || episode.Link == episodeID {
@@ -218,7 +268,7 @@ func main() {
 			episodeItems = append(episodeItems, EpisodeItem{
 				Item:          episode,
 				CleanDesc:     cleanDescription(episode.Description),
-				FormattedDate: pubDate.Format("2 January 2006"),
+				FormattedDate: formatDateFR(pubDate),
 			})
 		}
 
@@ -286,50 +336,18 @@ func main() {
 			return
 		}
 
-		// Créer un nouveau contexte de dessin 1200x630
-		dc := gg.NewContext(1200, 630)
-
-		// Charger l'image de fond estamitech-bckg.png
-		bgImg, err := gg.LoadImage("static/estamitech-bckg.png")
+		renderOGImage(writer, srcImg)
+	})
+	// Carte Open Graph 1200x630 de la page d'accueil : le logo du podcast composé
+	// sur le fond de la marque (URL absolue, dimensions déclarées côté template).
+	http.HandleFunc("/og-image", func(writer http.ResponseWriter, request *http.Request) {
+		logo, err := gg.LoadImage("static/LogoEstamitech.jpg")
 		if err != nil {
-			log.Printf("Error loading background image: %v", err)
-			// Fallback vers le fond violet
-			dc.SetColor(color.RGBA{93, 22, 146, 255}) // #5d1692
-			dc.Clear()
-		} else {
-			// Redimensionner l'image de fond pour couvrir 1200x630
-			dc.DrawImageAnchored(bgImg, 600, 315, 0.5, 0.5)
+			log.Printf("Error loading homepage logo: %v", err)
+			http.NotFound(writer, request)
+			return
 		}
-
-		// Calculer la taille pour l'image carrée centrée (500x500 pour garder de la marge)
-		imgSize := 500
-		x := (1200 - imgSize) / 2
-		y := (630 - imgSize) / 2
-
-		// Calculer le facteur de redimensionnement
-		bounds := srcImg.Bounds()
-		srcWidth := bounds.Dx()
-		srcHeight := bounds.Dy()
-		scale := float64(imgSize) / float64(srcWidth)
-		if srcHeight > srcWidth {
-			scale = float64(imgSize) / float64(srcHeight)
-		}
-
-		// Redimensionner et dessiner l'image centrée
-		dc.Push()
-		dc.Translate(float64(x+imgSize/2), float64(y+imgSize/2))
-		dc.Scale(scale, scale)
-		dc.DrawImageAnchored(srcImg, 0, 0, 0.5, 0.5)
-		dc.Pop()
-
-		// Encoder et envoyer l'image
-		writer.Header().Set("Content-Type", "image/png")
-		writer.Header().Set("Cache-Control", "public, max-age=86400") // Cache for 24 hours
-		err = dc.EncodePNG(writer)
-		if err != nil {
-			log.Printf("Error encoding PNG: %v", err)
-			http.Error(writer, "Internal Server Error", http.StatusInternalServerError)
-		}
+		renderOGImage(writer, logo)
 	})
 	http.HandleFunc("/episode/", func(writer http.ResponseWriter, request *http.Request) {
 		// Extraire l'ID de l'épisode depuis le path
