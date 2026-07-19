@@ -11,6 +11,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 	"regexp"
 	"strings"
@@ -71,6 +72,7 @@ type EpisodePageData struct {
 	Episode       Item
 	CleanDesc     string
 	FormattedDate string
+	PubDateISO    string // date de publication en ISO-8601 (pour JSON-LD / article:published_time)
 	HTMLDesc      template.HTML
 }
 
@@ -380,6 +382,7 @@ func main() {
 			Episode:       *episode,
 			CleanDesc:     cleanDescription(episode.Description),
 			FormattedDate: pubDate.Format("02-01-2006"),
+			PubDateISO:    pubDate.Format(time.RFC3339),
 			HTMLDesc:      template.HTML(episode.Description),
 		}
 
@@ -410,22 +413,30 @@ func main() {
 		writer.Header().Set("Content-Type", "application/xml; charset=utf-8")
 		writer.WriteHeader(http.StatusOK)
 
+		// lastmod de l'accueil = date du dernier épisode (plus fidèle que « aujourd'hui »)
+		homeLastmod := time.Now().Format("2006-01-02")
+		if len(episodes) > 0 {
+			if d, err := time.Parse(time.RFC1123, episodes[0].PubDate); err == nil {
+				homeLastmod = d.Format("2006-01-02")
+			}
+		}
+
 		// En-tête XML et sitemap
 		_, _ = writer.Write([]byte(`<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url>
 		<loc>https://estamitech.fr/</loc>
-		<lastmod>` + time.Now().Format("2006-01-02") + `</lastmod>
+		<lastmod>` + homeLastmod + `</lastmod>
 		<changefreq>daily</changefreq>
 		<priority>1.0</priority>
 	</url>`))
 
-		// Ajouter chaque épisode
+		// Ajouter chaque épisode (GUID échappé pour l'URL, par sécurité)
 		for _, episode := range episodes {
 			pubDate, _ := time.Parse(time.RFC1123, episode.PubDate)
 			_, _ = writer.Write([]byte(`
 	<url>
-		<loc>https://estamitech.fr/episode/` + episode.GUID + `</loc>
+		<loc>https://estamitech.fr/episode/` + url.PathEscape(episode.GUID) + `</loc>
 		<lastmod>` + pubDate.Format("2006-01-02") + `</lastmod>
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>

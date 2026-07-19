@@ -91,6 +91,15 @@ button { font-family: inherit; cursor: pointer; }
   border-radius: 2px;
 }
 
+/* Icônes SVG inline (sprite <symbol>) — remplacent Font Awesome, zéro requête externe */
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
 /* --- Grain Overlay (applied to background, not as overlay — Safari compat) --- */
 body::after {
   content: '';
@@ -478,7 +487,7 @@ h1, h2, h3, h4 {
   padding: 6px 0;
   transition: color var(--transition);
 }
-.socials a i { font-size: 1rem; }
+.socials a .icon { font-size: 1rem; }
 .socials a:hover { color: var(--magenta); }
 
 /* Podcast platform links */
@@ -516,7 +525,7 @@ h1, h2, h3, h4 {
   transform: translateY(-2px);
   box-shadow: 0 4px 14px rgba(249, 115, 22, 0.3);
 }
-.rss-btn i { font-size: 0.9rem; }
+.rss-btn .icon { font-size: 0.9rem; }
 
 /* Map card */
 .map-card {
@@ -714,9 +723,9 @@ h1, h2, h3, h4 {
   margin-bottom: 40px;
   transition: color var(--transition);
 }
-.back-link i { font-size: 0.75rem; transition: transform var(--transition); }
+.back-link .icon { font-size: 0.85rem; transition: transform var(--transition); }
 .back-link:hover { color: var(--magenta); }
-.back-link:hover i { transform: translateX(-4px); }
+.back-link:hover .icon { transform: translateX(-4px); }
 
 .ep-page__header {
   text-align: center;
