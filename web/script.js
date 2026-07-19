@@ -5,6 +5,11 @@
 (function() {
     'use strict';
 
+    // Respecter la préférence système « animations réduites » (WCAG 2.3.3)
+    var prefersReducedMotion = window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var scrollBehavior = prefersReducedMotion ? 'auto' : 'smooth';
+
     // --- Mobile menu toggle ---
     var navToggle = document.querySelector('.nav__toggle');
     var navLinks = document.querySelector('.nav__links');
@@ -51,7 +56,7 @@
 
         backToTop.addEventListener('click', function(e) {
             e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0, behavior: scrollBehavior });
         });
     }
 
@@ -68,7 +73,7 @@
                 var navEl = document.querySelector('.nav');
                 var navHeight = navEl ? navEl.offsetHeight : 0;
                 var top = target.getBoundingClientRect().top + window.scrollY - navHeight;
-                window.scrollTo({ top: top, behavior: 'smooth' });
+                window.scrollTo({ top: top, behavior: scrollBehavior });
             }
         });
     }

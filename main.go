@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/xml"
+	"fmt"
 	"html/template"
 	"image"
 	"image/color"
@@ -105,13 +106,13 @@ func getRSSData() ([]Item, error) {
 
 	response, err := http.DefaultClient.Get(estamitechRss)
 	if err != nil {
-		return nil, err
+		return rssCache.staleOrError(err)
 	}
 	defer response.Body.Close()
 
 	respBytes, err := io.ReadAll(response.Body)
 	if err != nil {
-		return nil, err
+		return rssCache.staleOrError(err)
 	}
 
 	resp := string(respBytes)
@@ -120,7 +121,7 @@ func getRSSData() ([]Item, error) {
 	var rss Rss
 	err = xml.Unmarshal([]byte(resp), &rss)
 	if err != nil {
-		return nil, err
+		return rssCache.staleOrError(err)
 	}
 
 	// Mettre à jour le cache
@@ -128,6 +129,17 @@ func getRSSData() ([]Item, error) {
 	rssCache.timestamp = time.Now()
 
 	return rssCache.data, nil
+}
+
+// staleOrError renvoie le dernier cache RSS connu (même expiré) quand un
+// rafraîchissement échoue, pour garder le site en ligne pendant une panne
+// temporaire du flux. À n'appeler qu'avec le verrou d'écriture détenu.
+func (c *RSSCache) staleOrError(err error) ([]Item, error) {
+	if c.data != nil {
+		log.Printf("Échec du rafraîchissement RSS (%v) — service du cache expiré (%d épisodes)", err, len(c.data))
+		return c.data, nil
+	}
+	return nil, err
 }
 
 func cleanDescription(desc string) string {
@@ -145,30 +157,37 @@ func cleanDescription(desc string) string {
 	return strings.TrimSpace(clean)
 }
 
-// writeNotFound renvoie un vrai statut 404 (au lieu d'une redirection 303 vers
-// l'accueil qui créait un « soft-404 » néfaste pour le référencement).
-func writeNotFound(writer http.ResponseWriter) {
+// writeErrorPage rend une page d'erreur de repli aux couleurs du site, avec le
+// bon code HTTP — au lieu de servir un fichier web/index.html qui n'existe pas.
+func writeErrorPage(writer http.ResponseWriter, status int, eyebrow, heading, message string) {
 	writer.Header().Set("Content-Type", "text/html; charset=utf-8")
-	writer.WriteHeader(http.StatusNotFound)
-	_, _ = writer.Write([]byte(`<!DOCTYPE html>
+	writer.WriteHeader(status)
+	_, _ = fmt.Fprintf(writer, `<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
-<title>Épisode introuvable — L'EstamiTech</title>
+<title>%s — L'EstamiTech</title>
 <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <main class="ep-page" style="text-align:center">
-<span class="label">Erreur 404</span>
-<h1>Épisode introuvable</h1>
-<p style="color:var(--text-dim);margin:16px 0 32px">Cet épisode n'existe pas ou n'est plus disponible.</p>
+<span class="label">%s</span>
+<h1>%s</h1>
+<p style="color:var(--text-dim);margin:16px 0 32px">%s</p>
 <a href="/" class="ep-link">Retour à l'accueil <span>&rarr;</span></a>
 </main>
 </body>
-</html>`))
+</html>`, heading, eyebrow, heading, message)
+}
+
+// writeNotFound renvoie un vrai statut 404 (au lieu d'une redirection 303 vers
+// l'accueil qui créait un « soft-404 » néfaste pour le référencement).
+func writeNotFound(writer http.ResponseWriter) {
+	writeErrorPage(writer, http.StatusNotFound, "Erreur 404", "Épisode introuvable",
+		"Cet épisode n'existe pas ou n'est plus disponible.")
 }
 
 func findEpisodeByID(episodes []Item, episodeID string) *Item {
@@ -186,7 +205,9 @@ func main() {
 		episodes, err := getRSSData()
 		if err != nil {
 			log.Printf("Error getting RSS data: %v", err)
-			http.ServeFile(writer, request, "web/index.html")
+			writeErrorPage(writer, http.StatusServiceUnavailable, "Erreur 503",
+				"Service momentanément indisponible",
+				"Le flux du podcast est temporairement injoignable, merci de réessayer dans un instant.")
 			return
 		}
 
@@ -210,15 +231,17 @@ func main() {
 		tmpl, err := template.ParseFiles("web/index.gohtml")
 		if err != nil {
 			log.Printf("Error parsing template: %v", err)
-			http.ServeFile(writer, request, "web/index.html")
+			writeErrorPage(writer, http.StatusInternalServerError, "Erreur",
+				"Une erreur est survenue", "Impossible d'afficher la page pour le moment.")
 			return
 		}
 
 		writer.Header().Set("Content-Type", "text/html; charset=utf-8")
 		err = tmpl.Execute(writer, pageData)
 		if err != nil {
+			// La réponse a déjà commencé à être écrite : on ne peut plus
+			// remplacer le statut, on se contente de journaliser.
 			log.Printf("Error executing template: %v", err)
-			http.ServeFile(writer, request, "web/index.html")
 			return
 		}
 	})

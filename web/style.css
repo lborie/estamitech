@@ -989,3 +989,25 @@ h1, h2, h3, h4 {
   .footer__links { gap: 6px 12px; }
   .footer__copy { font-size: 0.72rem; padding: 0 16px; }
 }
+
+/* ============================================
+   PRÉFÉRENCE « ANIMATIONS RÉDUITES » (WCAG 2.3.3)
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Le contenu révélé au scroll reste visible, sans transition */
+  .reveal-ready .reveal { opacity: 1 !important; transform: none !important; }
+
+  /* Coupe les décorations en boucle (sparkles, halo du logo, trait de scroll) */
+  .sparkle,
+  .hero__logo::after,
+  .hero__scroll-line { animation: none !important; }
+}
