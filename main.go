@@ -178,7 +178,7 @@ func writeErrorPage(writer http.ResponseWriter, status int, eyebrow, heading, me
 <main class="ep-page" style="text-align:center">
 <span class="label">%s</span>
 <h1>%s</h1>
-<p style="color:var(--text-dim);margin:16px 0 32px">%s</p>
+<p style="color:var(--text);margin:16px 0 32px">%s</p>
 <a href="/" class="ep-link">Retour à l'accueil <span>&rarr;</span></a>
 </main>
 </body>

@@ -242,7 +242,7 @@ h1, h2, h3, h4 {
 .nav__links a {
   font-size: 0.88rem;
   font-weight: 500;
-  color: var(--text-dim);
+  color: var(--text);
   letter-spacing: 0.02em;
   position: relative;
   transition: color var(--transition);
@@ -353,7 +353,7 @@ h1, h2, h3, h4 {
   font-size: clamp(1.1rem, 2.2vw, 1.5rem);
   font-weight: 100;
   font-style: normal;
-  color: var(--text-dim);
+  color: var(--text);
   margin-bottom: 28px;
   animation: fade-up 0.8s ease 0.3s both;
 }
@@ -453,7 +453,7 @@ h1, h2, h3, h4 {
 }
 
 .about__text p {
-  color: var(--text-dim);
+  color: var(--text);
   margin-bottom: 16px;
   font-size: 0.95rem;
 }
@@ -483,7 +483,7 @@ h1, h2, h3, h4 {
   gap: 6px;
   font-size: 0.82rem;
   font-weight: 500;
-  color: var(--text-dim);
+  color: var(--text);
   padding: 6px 0;
   transition: color var(--transition);
 }
@@ -563,7 +563,7 @@ h1, h2, h3, h4 {
 .map-link a {
   font-size: 0.82rem;
   font-weight: 500;
-  color: var(--text-dim);
+  color: var(--text);
   transition: color var(--transition);
 }
 .map-link a:hover { color: var(--magenta); }
@@ -620,7 +620,7 @@ h1, h2, h3, h4 {
 }
 
 .ep-featured__body p {
-  color: var(--text-dim);
+  color: var(--text);
   font-size: 0.95rem;
   margin-bottom: 24px;
   display: -webkit-box;
@@ -697,7 +697,7 @@ h1, h2, h3, h4 {
 
 .ep-card__body p {
   font-size: 0.88rem;
-  color: var(--text-dim);
+  color: var(--text);
   line-height: 1.6;
   margin-bottom: 18px;
   display: -webkit-box;
@@ -719,7 +719,7 @@ h1, h2, h3, h4 {
   gap: 8px;
   font-size: 0.85rem;
   font-weight: 500;
-  color: var(--text-dim);
+  color: var(--text);
   margin-bottom: 40px;
   transition: color var(--transition);
 }
@@ -810,7 +810,7 @@ h1, h2, h3, h4 {
 }
 
 .ep-page__desc div {
-  color: var(--text-dim);
+  color: var(--text);
   font-size: 0.95rem;
   line-height: 1.85;
 }
@@ -900,7 +900,7 @@ h1, h2, h3, h4 {
   background: var(--bg-surface);
   border: 1px solid var(--border);
   border-radius: 50%;
-  color: var(--text-dim);
+  color: var(--text);
   text-decoration: none;
   opacity: 0;
   visibility: hidden;
