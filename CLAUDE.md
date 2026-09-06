@@ -51,7 +51,7 @@ make deploy
 
 ## Dependencies
 
-- Go 1.23+ (specified in `go.mod` and `app.yaml`)
+- Go 1.23+ (minimum declared in `go.mod`); App Engine Standard runtime `go127` (`app.yaml`)
 - `github.com/fogleman/gg` - For dynamic image generation
 - Google Cloud SDK (for deployment)
 
