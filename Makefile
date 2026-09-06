@@ -1,3 +1,6 @@
+banner:
+	go run ./cmd/banner
+
 dev-run:
 	python3 ${GOOGLE_CLOUD_SDK}/bin/dev_appserver.py app.yaml
 

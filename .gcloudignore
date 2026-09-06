@@ -24,3 +24,9 @@
 *.test
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+
+# Outillage de génération des visuels : second package main + polices sources,
+# inutiles au runtime (le site charge les woff2). On les garde dans git mais
+# hors de l'upload App Engine.
+cmd/
+static/fonts/*.ttf
